@@ -1,0 +1,755 @@
+{
+	"pages": [
+	// 	{
+	// 	"path": "wx/tabbar1/index",
+	// 	"name": "wxtabbar1",
+	// 	"aliasPath": "/wxtabbar1",
+	// 	"requireAuth": true,
+	// 	"style": {
+	// 		"navigationBarTitleText": "消息",
+	// 		"app-plus": {
+	// 			"titleNView": {
+	// 				"buttons": [{
+	// 					"text": "\ue657",
+	// 					"fontSrc": "/static/wx_iconfont.ttf",
+	// 					"fontSize": "28px"
+	// 				}, {
+	// 					"text": "\ue636",
+	// 					"fontSrc": "/static/wx_iconfont.ttf",
+	// 					"fontSize": "26px"
+	// 				}]
+	// 			}
+	// 		}
+	// 	}
+	// },
+	{
+		"path": "pages/wxindex/index",
+		"name": "wxindex",
+		"aliasPath": "/wxindex",
+		"requireAuth": true,
+		"style": {
+			"navigationBarTitleText": "微信首页",
+			"navigationStyle": "custom"
+		}
+	}, {
+		"path": "pages/agreement/index",
+		"name": "agreement",
+		"aliasPath": "/agreement",
+		"requireAuth": true,
+		"style": {
+			"navigationBarTitleText": "隐私及服务协议",
+			"navigationBarBackgroundColor": "#ffffff",
+			"navigationBarTextStyle": "black"
+		}
+	}],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"background": "#efeff4"
+		}
+	},
+	"tabBar": { //底部
+		"color": "#999999",
+		"selectedColor": "#09C160",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+				"pagePath": "wx/tabbar1/index",
+				"iconPath": "static/wx/n0.png",
+				"selectedIconPath": "static/wx/n0_on.png",
+				"text": "消息"
+			},
+			{
+				"pagePath": "wx/tabbar2/index",
+				"iconPath": "static/wx/n01.png",
+				"selectedIconPath": "static/wx/n01_on.png",
+				"text": "通讯录"
+			},
+			{
+				"pagePath": "wx/tabbar3/index",
+				"iconPath": "static/wx/n02.png",
+				"selectedIconPath": "static/wx/n02_on.png",
+				"text": "发现"
+			},
+			{
+				"pagePath": "wx/tabbar4/index",
+				"iconPath": "static/wx/n03.png",
+				"selectedIconPath": "static/wx/n03_on.png",
+				"text": "我"
+			}
+		]
+	},
+	"subPackages": [ //分包，微信小程序单包最大2M
+		{
+			"root": "wx",
+			"pages": [{
+					"path": "login/index",
+					"name": "wxlogin",
+					"aliasPath": "/wxlogin",
+					"requireAuth": false,
+					"style": {
+						"navigationBarTitleText": "登录"
+					}
+				}, {
+					"path": "register/index",
+					"name": "wxregister",
+					"aliasPath": "/wxregister",
+					"requireAuth": false,
+					"style": {
+						"navigationBarTitleText": "注册"
+					}
+				}, {
+					"path": "forgetPass/index",
+					"name": "wxforgetPass",
+					"aliasPath": "/wxforgetPass",
+					"requireAuth": false,
+					"style": {
+						"navigationBarTitleText": "忘记密码"
+					}
+				}, {
+					"path": "chatWindow/index",
+					"name": "wxchatWindow",
+					"aliasPath": "/wxchatWindow",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "聊天窗口",
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "\ue623",
+									"fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "28px"
+								}]
+							}
+						}
+					}
+				}
+				, {
+					"path": "tabbar1/index",
+					"name": "wxtabbar1",
+					"aliasPath": "/wxtabbar1",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "消息",
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "\ue657",
+									"fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "28px"
+								}, {
+									"text": "\ue636",
+									"fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "26px"
+								}]
+							}
+						}
+					}
+				}
+				, {
+					"path": "tabbar2/index",
+					"name": "wxtabbar2",
+					"aliasPath": "/wxtabbar2",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "通讯录",
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "\ue657",
+									"fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "28px"
+								}, {
+									"text": "\ue636",
+									"fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "26px"
+								}]
+							}
+						}
+					}
+				}, {
+					"path": "tabbar3/index",
+					"name": "wxtabbar3",
+					"aliasPath": "/wxtabbar3",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "发现",
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "\ue657",
+									"fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "28px"
+								}, {
+									"text": "\ue636",
+									"fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "26px"
+								}]
+							}
+						}
+					}
+				}, {
+					"path": "tabbar4/index",
+					"name": "wxtabbar4",
+					"aliasPath": "/wxtabbar4",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "我",
+						"navigationBarBackgroundColor": "#ffffff"
+					}
+				}, {
+					"path": "group/createGroup",
+					"name": "wxcreateGroup",
+					"aliasPath": "/wxcreateGroup",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "发起群聊"
+					}
+				}, {
+					"path": "shake/index",
+					"name": "wxshake",
+					"aliasPath": "/wxshake",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "摇一摇",
+						"navigationBarBackgroundColor":"#212121",
+						"navigationBarTextStyle":"white"
+					}
+				}, {
+					"path": "nearby/index",
+					"name": "wxnearby",
+					"aliasPath": "/wxnearby",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "附近的人",
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "\ue623",
+									"fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "28px"
+								}]
+							}
+						}
+					}
+				}, {
+					"path": "friendsCircle/msglist",
+					"name": "wxfriendsCirclemsglist",
+					"aliasPath": "/wxfriendsCirclemsglist",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "消息",
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "清空",
+									"fontSize": "16px",
+									"width":"44px",
+									"fontWeight":"bold"
+								}]
+							}
+						}
+					}
+				}, {
+					"path": "system/index",
+					"name": "wxsystem",
+					"aliasPath": "/wxsystem",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "设置"
+					}
+				}, {
+					"path": "search/index",
+					"name": "wxsearch",
+					"aliasPath": "/wxsearch",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "搜索"
+					}
+				}, {
+					"path": "search-friends/index",
+					"name": "wxsearch-friends",
+					"aliasPath": "/wxsearch-friends",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "新的朋友",
+						"enablePullDownRefresh" : true,
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "添加",
+									"fontSize": "16px"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "search-friends/add",
+					"name": "wxsearch-friends-add",
+					"aliasPath": "/search-friends-add",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "朋友验证",
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "发送",
+									"fontSize": "16px"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "personDetail/index",
+					"name": "wxpersonDetail",
+					"aliasPath": "/wxpersonDetail",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "个人信息" //个人中心信息
+					}
+				}, {
+					"path": "personInfo/addFriendsDetail",
+					"name": "wxpersonInfoAddFriendsDetail",
+					"aliasPath": "/wxpersonInfoAddFriendsDetail",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "" //添加好友信息
+					}
+				}, {
+					"path": "personInfo/beizhu",
+					"name": "wxpersonInfobeizhu",
+					"aliasPath": "/wxpersonInfobeizhu",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "设置备注", //修改备注
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "完成",
+									"fontSize": "16px"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "personDetail/editNikeName",
+					"name": "wxpersonDetaileditNikeName",
+					"aliasPath": "/wxpersonDetaileditNikeName",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "更改名称", //修改备注
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "完成",
+									"fontSize": "16px"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "personDetail/editchatNo",
+					"name": "wxpersonDetaileditchatNo",
+					"aliasPath": "/wxpersonDetaileditchatNo",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "更改微聊号", //修改备注
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "完成",
+									"fontSize": "16px"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "personDetail/editIntro",
+					"name": "wxpersonDetaileditIntro",
+					"aliasPath": "/wxpersonDetaileditIntro",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "更改个性签名",
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "完成",
+									"fontSize": "16px"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "personDetail/editGender",
+					"name": "wxpersonDetaileditGender",
+					"aliasPath": "/wxpersonDetaileditGender",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "更改性别",
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "完成",
+									"fontSize": "16px"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "personDetail/editAddress",
+					"name": "wxpersonDetaileditAddress",
+					"aliasPath": "/wxpersonDetaileditAddress",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "更改地区",
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "完成",
+									"fontSize": "16px"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "personDetail/editPass",
+					"name": "wxpersonDetaileditPass",
+					"aliasPath": "/wxpersonDetaileditPass",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "设置密码",
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "完成",
+									"fontSize": "16px"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "personInfo/detail",
+					"name": "wxpersonInfoDetail",
+					"aliasPath": "/wxpersonInfoDetail",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "信息", //好友个人信息
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "\ue623",
+									"fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "28px"
+								}]
+							}
+						}
+					}
+				}, {
+					"path": "groupInfo/detail",
+					"name": "wxgroupInfoDetail",
+					"aliasPath": "/wxgroupInfoDetail",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "聊天信息" //群信息
+					}
+				}, {
+					"path": "groupInfo/qunAdd",
+					"name": "wxqunAdd",
+					"aliasPath": "/wxqunAdd",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "选择联系人"
+					}
+				}, {
+					"path": "groupInfo/qunless",
+					"name": "wxqunless",
+					"aliasPath": "/wxqunless",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "聊天成员"
+					}
+				}, {
+					"path": "groupInfo/editGroupName",
+					"name": "wxgroupInfoeditGroupName",
+					"aliasPath": "/wxgroupInfoeditGroupName",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "更改群聊名称", //修改备注
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "完成",
+									"fontSize": "16px"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "groupInfo/editGroupNotice",
+					"name": "wxgroupInfoeditGroupNotice",
+					"aliasPath": "/wxgroupInfoeditGroupNotice",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "更改群公告", //修改备注
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "修改",
+									"fontSize": "16px"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "groupInfo/scanCodeDetail",
+					"name": "wxgroupInfoscanCodeDetail",
+					"aliasPath": "/wxgroupInfoscanCodeDetail",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "群聊信息"
+					}
+				}, {
+					"path": "groupInfo/grouplist",
+					"name": "wxgroupInfogrouplist",
+					"aliasPath": "/wxgroupInfogrouplist",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "群聊"
+					}
+				}, {
+					"path": "personDetail/QRcode",
+					"name": "wxpersonDetailQRcode",
+					"aliasPath": "/wxpersonDetailQRcode",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "二维码名片",
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "\ue623",
+									"fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "28px"
+								}]
+							}
+						}
+					}
+				}, {
+					"path": "groupInfo/QRcode",
+					"name": "wxgroupInfoQRcode",
+					"aliasPath": "/wxgroupInfoQRcode",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "群二维码",
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"text": "\ue623",
+									"fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "28px"
+								}]
+							}
+						}
+					}
+				}, {
+					"path": "personInfo/edit",
+					"name": "wxpersonInfoedit",
+					"aliasPath": "/wxpersonInfoedit",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "资料设置" //好友资料设置
+					}
+				}, {
+					"path": "friendsCircle/index",
+					"name": "wxfriendsCircle",
+					"aliasPath": "/wxfriendsCircle",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "朋友圈",
+						"enablePullDownRefresh" : true,
+						"app-plus": {
+							"titleNView": {
+								"type": "transparent",
+								"titleColor": "#fff",
+								"backgroundColor": "#d1d1d1",
+								"buttons": [{
+									"text": "\ue638",
+									"fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "24px",
+									"background": "rgba(0,0,0,0)"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "friendsCircle/person",
+					"name": "wxfriendsCirclePerson",
+					"aliasPath": "/wxfriendsCirclePerson",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "我的相册",
+						"enablePullDownRefresh" : true,
+						"app-plus": {
+							"titleNView": {
+								"type": "transparent",
+								"titleColor": "#fff",
+								"backgroundColor": "#d1d1d1",
+								"buttons": [{
+									"text": "\ue6f4",
+									"fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "24px",
+									"background": "rgba(0,0,0,0)"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "friendsCircle/sendMsg",
+					"name": "wxsendMsg",
+					"aliasPath": "/wxsendMsg",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "发朋友圈",
+						"app-plus": {
+							"titleNView": {
+								// "type": "transparent",
+								// "titleColor": "#333333",
+								// "backgroundColor": "#09C160",
+								"buttons": [{
+									"color": "#09C160",
+									"text": "发表",
+									// "fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "16px",
+									"borderRadius": "0px",
+									"background": "#09C160"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "feedback/index",
+					"name": "wxfeedback",
+					"aliasPath": "/wxfeedback",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "建议反馈",
+						"app-plus": {
+							"titleNView": {
+								"buttons": [{
+									"color": "#09C160",
+									"text": "发表",
+									"fontSize": "16px",
+									"borderRadius": "0px",
+									"background": "#09C160"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}, {
+					"path": "favorites/index",
+					"name": "wxfavorites",
+					"aliasPath": "/wxfavorites",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "收藏",
+						"enablePullDownRefresh" : true,
+						"app-plus": {
+							"titleNView": {
+								// "buttons": [{
+								// 	"text": "\ue657",
+								// 	"fontSrc": "/static/wx_iconfont.ttf",
+								// 	"fontSize": "28px"
+								// }]
+							}
+						}
+					}
+				}, {
+					"path": "friendsCircle/detail",
+					"name": "wxfriendsCircledetail",
+					"aliasPath": "/wxfriendsCircledetail",
+					"requireAuth": true,
+					"style": {
+						"navigationBarTitleText": "详情",
+						"app-plus": {
+							"titleNView": {
+								// "type": "transparent",
+								// "titleColor": "#333333",
+								// "backgroundColor": "#09C160",
+								"buttons": [{
+									"text": "\ue623",
+									"fontSrc": "/static/wx_iconfont.ttf",
+									"fontSize": "24px",
+									"background": "rgba(0,0,0,0)"
+								}],
+								"backButton": {
+									"background": "rgba(0,0,0,0)"
+								}
+							}
+						}
+					}
+				}
+			]
+		},
+		{
+
+			"root": "wl",
+			"pages": [{
+				"path": "login/index",
+				"name": "wllogin",
+				"aliasPath": "/wllogin",
+				"requireAuth": false,
+				"style": {
+					"navigationBarTitleText": "登录",
+					"navigationStyle": "custom"
+				}
+			}]
+		}
+	]
+}
