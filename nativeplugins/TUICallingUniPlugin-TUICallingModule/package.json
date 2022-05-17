@@ -1,0 +1,94 @@
+{
+    "name": "TUICallingUniPlugin-TUICallingModule",
+    "id": "TUICallingUniPlugin-TUICallingModule",
+    "version": "1.0.5",
+    "description": "腾讯云音视频插件",
+    "_dp_type": "nativeplugin",
+    "_dp_nativeplugin": {
+        "android": {
+            "plugins": [
+                {
+                    "type": "module",
+                    "name": "TUICallingUniPlugin-TUICallingModule",
+                    "class": "com.tencent.qcloud.uniplugin.tuicalling.CallingModule"
+                }
+            ],
+            "integrateType": "aar",
+            "dependencies": [
+                "androidx.appcompat:appcompat:1.3.1",
+                "androidx.constraintlayout:constraintlayout:2.1.0",
+                "com.squareup.okhttp3:logging-interceptor:3.8.1",
+                "com.squareup.retrofit2:converter-gson:2.2.0",
+                "com.squareup.retrofit2:retrofit:2.2.0",
+                "com.squareup.okhttp3:okhttp:3.11.0",
+                "com.github.bumptech.glide:glide:4.12.0",
+                "de.hdodenhof:circleimageview:3.1.0",
+                "com.google.code.gson:gson:2.3.1",
+                "com.blankj:utilcode:1.25.9",
+                "com.tencent.liteav:LiteAVSDK_TRTC:9.3.10768",
+                "androidx.appcompat:appcompat:1.3.1",
+                "com.github.bumptech.glide:glide:4.12.0",
+                "androidx.recyclerview:recyclerview:1.2.1",
+                "com.github.promeg:tinypinyin:2.0.1",
+                "com.tencent.imsdk:imsdk-plus:5.9.1872"
+            ]
+        },
+        "ios": {
+            "plugins": [
+                {
+                    "type": "module",
+                    "name": "TUICallingUniPlugin-TUICallingModule",
+                    "class": "TUICallingModule"
+                },
+                {
+                    "type": "component",
+                    "name": "TUICallingUniPlugin-TUICallingComponent",
+                    "class": "TUICallingComponent"
+                }
+            ],
+            "frameworks": [
+                "ImSDK_Plus.framework",
+                "TXLiteAVSDK_TRTC.framework",
+                "TUICallingUniPlugin.framework",
+                "Accelerate.framework",
+                "AssetsLibrary.framework",
+                "AudioToolBox.framework",
+                "AVFoundation.framework",
+                "CoreGraphics.framework",
+                "CoreMedia.framework",
+                "CoreTelephony.framework",
+                "Foundation.framework",
+                "libc++.tbd",
+                "libiconv.tdb",
+                "libresolv.tdb",
+                "libsqlite3.tdb",
+                "libyuv.a",
+                "libz.tdb",
+                "MediaPlayer.framework",
+                "Security.framework",
+                "SystemConfiguration.framework",
+                "TCBeautyPanel.framework",
+                "VideoToolbox.framework",
+                "UIKit.framework",
+                "CFNetwork.framework",
+                "Masonry.framework",
+                "libSDWebImage.a"
+            ],
+            "embedFrameworks": [
+                "ImSDK_Plus.framework"
+            ],
+            "integrateType": "framework",
+            "deploymentTarget": "9.0",
+            "validArchitectures": [
+                "arm64",
+                "armv7"
+            ],
+            "privacies": [
+                "NSPhotoLibraryUsageDescription",
+                "NSPhotoLibraryAddUsageDescription",
+                "NSCameraUsageDescription",
+                "NSMicrophoneUsageDescription"
+            ]
+        }
+    }
+}
