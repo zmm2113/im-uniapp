@@ -68,6 +68,9 @@
 		onShow(){
 			this.getUserInfo(this.param)
 		},
+		mounted() {
+			this.$fc.setTitleNViewBtns(0,'')
+		},
 		methods: {
 			getUserInfo(e){//好友详情
 				this.$http.request({
@@ -76,18 +79,55 @@
 						if (res.data.code == 200) {
 							this.detail=res.data.data
 							if(this.detail.userType!=='normal'||this.detail.isFriend=='N'){
-								this.$fc.setTitleNViewBtns(0,'')
 								this.showtitleNViewBtns=false
 								this.list3.splice(1,1)
 								this.list2.splice(1,1)
 							}else{
 								this.showtitleNViewBtns=true
+								this.$fc.setTitleNViewBtns(0,'\ue623')
+							}
+							if(this.detail.userType=='self'){
+								this.list2.push({
+									title: '朋友圈',
+									path: '#'
+								})
 							}
 							if(this.detail.sourceLabel){
 								if(!this.source){
 									this.source=this.detail.source
 								}
 								this.list2[0].else[0].content=this.detail.sourceLabel
+							} else if(this.source){
+								var text=''
+								switch (this.source){
+									case '1':
+									text='扫一扫'
+										break;
+									case '2':
+									text='名片'
+										break;
+									case '3':
+									text='微聊号'
+										break;
+									case '4':
+									text='手机号'
+										break;
+									case '5':
+									text='摇一摇'
+										break;
+									case '6':
+									text='系统'
+										break;
+									case '7':
+									text='群聊'
+										break;
+									case '8':
+									text='附近的人'
+										break;
+									default:
+										break;
+								}
+								this.list2[0].else[0].content=text
 							}else{
 								this.list2[0].else[0].content='无'
 							}

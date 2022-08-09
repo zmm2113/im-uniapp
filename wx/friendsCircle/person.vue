@@ -1,6 +1,6 @@
 <template>
 	<view class="friendsCircle">
-		<friends-circle-top :cover="cover" :userInfo="userInfox" @userClick="userClick"></friends-circle-top>
+		<friends-circle-top :cover="cover" :userInfo="userInfox" @userClick="userClick" :showChangePoster="showChangePoster"></friends-circle-top>
 		<view class="friendsCircle-content-today">
 			<view class="friends-circle-today" v-if="showMsglist">
 				<view class="friends-circle-today-text">今天</view>
@@ -26,6 +26,7 @@ export default {
 			},
 			content: [],
 			showMsglist:false,
+			showChangePoster:false,
 			userInfox:{},
 			cover:{type:'img',name:'',url:''},
 			userId:''
@@ -37,16 +38,19 @@ export default {
 		}
 	},
 	onLoad(e) {
-		this.$fc.setTitleNViewBtns(0,'')
 		if(e.userId){
 			this.userId=e.userId
-			if(this.userId==this.userInfo.userId){
-				this.showMsglist=true
-				this.$fc.setTitleNViewBtns(0,'\ue6f4')
-			}
 		}else{
 			this.userId=this.userInfo.userId
+		}
+		if(this.userId==this.userInfo.userId){
 			this.showMsglist=true
+			this.showChangePoster=true
+		}
+	},
+	mounted() {
+		this.$fc.setTitleNViewBtns(0,'')
+		if(this.showMsglist){
 			this.$fc.setTitleNViewBtns(0,'\ue6f4')
 		}
 		this.getUserInfo(this.userId)

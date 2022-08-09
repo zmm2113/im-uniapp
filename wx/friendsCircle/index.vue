@@ -39,18 +39,8 @@ export default {
 			return this.$store.state.topicReply;
 		}
 	},
-	onLoad() {},
-	onShow() {
-		this.queryParams.refreshing=true
+	onLoad() {
 		this.getlist();
-		this.$nextTick(()=>{
-			setTimeout(()=>{
-				uni.pageScrollTo({
-					scrollTop: 0,
-					duration: 10
-				});
-			},300)
-		})
 	},
 	methods: {
 		getlist() {

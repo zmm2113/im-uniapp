@@ -1,29 +1,21 @@
 <template>
 	<view>
 		<uni-popup ref="popup" type="center">
-			<view class="popsendCard" :style="'height:' + windowHeight + 'px'">
-				<sendCard @click="sendCardclick"></sendCard>
-			</view>
+			<view class="popsendCard" :style="'height:' + windowHeight + 'px'"><sendCard @click="sendCardclick"></sendCard></view>
 		</uni-popup>
 		<uni-popup ref="popupfavorites" type="center" background-color="#fff" style="background-color: #fff;">
-			<scroll-view scroll-y :style="'height:' + windowHeight + 'px'">
-				<favorites type="2" @clickitem="clickitem"></favorites>
-			</scroll-view>
+			<scroll-view scroll-y :style="'height:' + windowHeight + 'px'"><favorites type="2" @clickitem="clickitem"></favorites></scroll-view>
 		</uni-popup>
 		<view class="zfb-tk-main">
 			<uni-list class="zfb-tk-conent" :border="false" style="background: none;"><chatItem v-for="(v, index) in chatWindowData" :key="'key' + index" :talkTo="talkTo" :itemKey="index" :item="v" @tryagin="tryagin" @longpressItem="longpressItem" :longTapItemKey="longTapItemKey"></chatItem></uni-list>
 		</view>
 		<view :style="'height: ' + keyboardHeight + 'px'"></view>
-		<view v-if="showtool||showEmojitool" :style="'height:558rpx'"></view>
+		<view v-if="showtool || showEmojitool" :style="'height:558rpx'"></view>
 		<view class="zfb-tk-send-tool" :style="'transform: translateY(-' + keyboardHeight + 'px)'">
 			<view class="zfb-tk-send-tool-c">
 				<view class="zfb-tk-send-tool-icon wxfont" @click="changeShowVice" :class="showVice ? 'jianpan' : 'yuyin2'"></view>
-				<view class="zfb-tk-send-tool-vioce" v-if="showVice">
-					<view class="zfb-tk-send-tool-vioce-item" @longpress="startRecord" @touchend="endRecord">按住说话</view>
-				</view>
-				<view v-else class="zfb-tk-send-tool-input-box" @click="msgFocus=true">
-					<textarea @focus="showtool = false" :focus="msgFocus" class="zfb-tk-send-tool-input" :adjust-position="false" v-model="msg" placeholder="" hold-keyboard confirm-type="send" @confirm="sendMsg(msg, 'TEXT')" :maxlength="-1" auto-height />
-				</view>
+				<view class="zfb-tk-send-tool-vioce" v-if="showVice"><view class="zfb-tk-send-tool-vioce-item" @longpress="startRecord" @touchend="endRecord">按住说话</view></view>
+				<view v-else class="zfb-tk-send-tool-input-box" @click="msgFocus = true"><textarea @focus="showtool = false" :focus="msgFocus" class="zfb-tk-send-tool-input" :adjust-position="false" v-model="msg" placeholder="" hold-keyboard confirm-type="send" @confirm="sendMsg(msg, 'TEXT')" :maxlength="-1" auto-height /></view>
 				<view @click="changeEmojiTool" class="zfb-tk-send-tool-more wxfont biaoqing"></view>
 				<view v-if="msg !== ''" class="zfb-tk-send-tool-text" @touchend.prevent="sendMsg(msg, 'TEXT')" :style="{ background: msg !== '' ? '#1BC418' : '#F7F7F7', color: msg !== '' ? '#fff' : '#ddd', 'border-color': msg !== '' ? '#1BC418' : '#ddd' }">发送</view>
 				<view v-else @click="changeTool" class="zfb-tk-send-tool-more wxfont gengduo"></view>
@@ -36,7 +28,7 @@
 			</view>
 			<scroll-view :scroll-y="true" v-if="showEmojitool" class="wxemojitool">
 				<view class="wxemojitool-content">
-					<view class="wxemojitool-item" @click="addMsg(v)" v-for="(v,i) in emojilist" :key="i">{{v}}</view>
+					<view class="wxemojitool-item" @click="addMsg(v)" v-for="(v, i) in emojilist" :key="i">{{ v }}</view>
 				</view>
 			</scroll-view>
 		</view>
@@ -49,7 +41,7 @@
 
 <script>
 // #ifdef APP-PLUS
-const TUICalling = uni.requireNativePlugin("TUICallingUniPlugin-TUICallingModule");
+const TUICalling = uni.requireNativePlugin('TUICallingUniPlugin-TUICallingModule');
 // #endif
 import favorites from '../favorites/index.vue';
 import chatItem from './chat-item.vue';
@@ -62,7 +54,7 @@ export default {
 	},
 	data() {
 		return {
-			emojilist:['😁','😂','😃','😄','😅','😆','😉','😊','😋','😌','😍','😏','😒','😓','😔','😖','😘','😚','😜','😝','😞','😠','😡','😢','😣','😤','😥','😨','😩','😪','😫','😭','😰','😱','😲','😳','😵','😷','😸','😹','😺','😻','😼','😽','😾','😿','🙀','🙅','🙆','🙇','🙈','🙉','🙊','🙋','🙌','🙍','🙎','🙏'],
+			emojilist: ['😁', '😂', '😃', '😄', '😅', '😆', '😉', '😊', '😋', '😌', '😍', '😏', '😒', '😓', '😔', '😖', '😘', '😚', '😜', '😝', '😞', '😠', '😡', '😢', '😣', '😤', '😥', '😨', '😩', '😪', '😫', '😭', '😰', '😱', '😲', '😳', '😵', '😷', '😸', '😹', '😺', '😻', '😼', '😽', '😾', '😿', '🙀', '🙅', '🙆', '🙇', '🙈', '🙉', '🙊', '🙋', '🙌', '🙍', '🙎', '🙏'],
 			showRecorder: false,
 			showVice: false,
 			toolist: [
@@ -93,16 +85,16 @@ export default {
 			],
 			msgFocus: false,
 			showtool: false,
-			showEmojitool:false,
+			showEmojitool: false,
 			msg: '',
 			timer: '',
 			talkTo: '',
 			keyboardHeight: 0,
-			windowHeight:0,
-			longTapItemKey:'',
+			windowHeight: 0,
+			longTapItemKey: '',
 			// chatWindowData:[],
-			localData:{},
-			showtitleNViewBtns:true,
+			localData: {},
+			showtitleNViewBtns: true
 		};
 	},
 	computed: {
@@ -110,17 +102,18 @@ export default {
 			return this.$store.state.userInfo;
 		},
 		chatListInfo() {
-			return this.$store.state.chatlist[this.talkTo.userId]
+			return this.$store.state.chatlist[this.talkTo.userId];
 		},
-		chatDataState(){
-			return this.$store.state.chatDataState
+		chatDataState() {
+			return this.$store.state.chatDataState;
 		},
-		chatDataUserId(){
-			return this.$store.state.chatDataUserId
+		chatDataUserId() {
+			return this.$store.state.chatDataUserId;
 		},
-		chatWindowData(){
-			if(this.$store.state.chatDatalist[this.talkTo.userId]){
-				return this.$store.state.chatDatalist[this.talkTo.userId].list
+		chatWindowData() {
+			this.$store.dispatch('getchatDatalist');
+			if (this.$store.state.chatDatalist[this.talkTo.userId]) {
+				return this.$store.state.chatDatalist[this.talkTo.userId].list;
 			}
 		}
 	},
@@ -129,7 +122,7 @@ export default {
 			deep: true,
 			immediate: true,
 			handler(v) {
-				if(this.chatDataUserId==this.talkTo.userId){
+				if (this.chatDataUserId == this.talkTo.userId) {
 					this.scrolltoBottom();
 				}
 			}
@@ -138,46 +131,48 @@ export default {
 			deep: true,
 			immediate: true,
 			handler(v) {
-				if(v>0){
-					this.showEmojitool=false
+				if (v > 0) {
+					this.showEmojitool = false;
 				}
 				this.scrolltoBottom();
 			}
-		},
+		}
 	},
 	onLoad(e) {
 		this.talkTo = e;
 		// 根据Id
-		this.$store.dispatch('createChatObj',{
-			userId:this.talkTo.userId,
-			windowType:this.talkTo.windowType,
-		}).then(res=>{
-			this.localData=res.data
-			if(e.windowType=='SINGLE'){
-				uni.setNavigationBarTitle({
-					title: this.localData.fromInfo.nickName
-				});
-			}
-			this.$store.dispatch('getchatDatalist');
-			this.$store.dispatch('getChatList');
-			if(this.localData.fromInfo&&this.localData.fromInfo.userType=='normal'){
-				this.toolist.push({
-					title: '音视频',
-					icon: 'yspin'
-				})
-			}else{
-				this.$fc.setTitleNViewBtns(0,'')
-				this.showtitleNViewBtns=false
-			}
-			if(this.localData.groupInfo&&this.localData.groupInfo.userId){
-				this.$fc.setTitleNViewBtns(0,'\ue623')
-				this.showtitleNViewBtns=true
-			}
-			this.scrolltoBottom();
-		});
+		this.$store
+			.dispatch('createChatObj', {
+				userId: this.talkTo.userId,
+				windowType: this.talkTo.windowType
+			})
+			.then(res => {
+				this.localData = res.data;
+				if (e.windowType == 'SINGLE') {
+					uni.setNavigationBarTitle({
+						title: this.localData.fromInfo.nickName
+					});
+				}
+				this.$store.dispatch('getchatDatalist');
+				this.$store.dispatch('getChatList');
+				if (this.localData.fromInfo && this.localData.fromInfo.userType == 'normal') {
+					this.toolist.push({
+						title: '音视频',
+						icon: 'yspin'
+					});
+				} else {
+					this.$fc.setTitleNViewBtns(0, '');
+					this.showtitleNViewBtns = false;
+				}
+				if (this.localData.groupInfo && this.localData.groupInfo.userId) {
+					this.$fc.setTitleNViewBtns(0, '\ue623');
+					this.showtitleNViewBtns = true;
+				}
+				this.scrolltoBottom();
+			});
 	},
 	onShow() {
-		if(this.chatListInfo&&this.chatListInfo.nickName){
+		if (this.chatListInfo && this.chatListInfo.nickName) {
 			uni.setNavigationBarTitle({
 				title: this.chatListInfo.nickName
 			});
@@ -197,15 +192,16 @@ export default {
 		}
 	},
 	methods: {
-		addMsg(e){
-			this.msg+=e
+		addMsg(e) {
+			this.msg += e;
 		},
-		clickitem(e,i){//发送收藏
-			this.sendMsg(e.content,e.collectType)
-			this.closepopup('popupfavorites')
+		clickitem(e, i) {
+			//发送收藏
+			this.sendMsg(e.content, e.collectType);
+			this.closepopup('popupfavorites');
 		},
-		longpressItem(e,i){
-			this.longTapItemKey=i
+		longpressItem(e, i) {
+			this.longTapItemKey = i;
 		},
 		startRecord() {
 			this.$refs['rec'].startRecord();
@@ -215,7 +211,7 @@ export default {
 			this.$refs['rec'].stopRecord();
 		},
 		recorderStop(e) {
-			uni.showLoading({title:'发送中'});
+			uni.showLoading({ title: '发送中' });
 			this.$http.uploadFile({
 				url: '/file/uploadAudio',
 				filePath: e.recordFilePath,
@@ -247,32 +243,32 @@ export default {
 		upLoadallComplete(e) {
 			// this.sendMsg(JSON.stringify(e),'IMAGE')
 		},
-		changeEmojiTool(){
-			this.showEmojitool=!this.showEmojitool
-			this.showtool=false
+		changeEmojiTool() {
+			this.showEmojitool = !this.showEmojitool;
+			this.showtool = false;
 		},
 		changeTool() {
 			this.showtool = !this.showtool;
-			this.showEmojitool=false
-			this.scrolltoBottom()
+			this.showEmojitool = false;
+			this.scrolltoBottom();
 		},
-		sendCardclick(e){
-			this.$refs.popup.close()
+		sendCardclick(e) {
+			this.$refs.popup.close();
 			this.sendMsg(JSON.stringify(e.item.data), 'CARD');
 		},
-		open(){
+		open() {
 			uni.getSystemInfo({
-				success: (res)=> {
-					this.windowHeight=res.windowHeight
+				success: res => {
+					this.windowHeight = res.windowHeight;
 				}
 			});
-			this.$refs.popup.open('top')
+			this.$refs.popup.open('top');
 		},
-		closepopup(e){
-			this.$refs[e].close()
+		closepopup(e) {
+			this.$refs[e].close();
 		},
-		openpopup(e){
-			this.$refs[e].open('top')
+		openpopup(e) {
+			this.$refs[e].open('top');
 		},
 		tryagin(e, i) {
 			//重新发送
@@ -282,97 +278,96 @@ export default {
 				userId: this.talkTo.userId,
 				data: this.chatWindowData
 			});
-			this.$nextTick(()=>{
+			this.$nextTick(() => {
 				this.sendMsg(e.content, e.msgType);
-			})
+			});
 		},
-		sendVoiceCall(){
+		sendVoiceCall() {
 			//发起语音
 			uni.showLoading({
-				title:'发起语音通话'
-			})
-			var formdata={
-				userId: this.talkTo.userId, 
-				msgType: "TRTC_VOICE_START", 
-				content: "TRTC_VOICE_START" 
-			}
+				title: '发起语音通话'
+			});
+			var formdata = {
+				userId: this.talkTo.userId,
+				msgType: 'TRTC_VOICE_START',
+				content: 'TRTC_VOICE_START'
+			};
 			this.$http.request({
 				url: '/chat/sendMsg',
 				method: 'POST',
 				data: JSON.stringify(formdata),
-				success: (res) => {
-					if(res.data.code=='200'){
-						if(res.data.data.status!=='0'){
+				success: res => {
+					if (res.data.code == '200') {
+						if (res.data.data.status !== '0') {
 							uni.showToast({
-								title:res.data.data.statusLabel,
-								icon:'none'
-							})
-							return
+								title: res.data.data.statusLabel,
+								icon: 'none'
+							});
+							return;
 						}
-						var userInfo=res.data.data.userInfo
-						var data={
-							userId:userInfo.userId,
-							trtcId:userInfo.trtcId,
-							nickName:userInfo.nickName,
-							portrait:userInfo.portrait,
-							startTime:new Date().getTime(),
-							type:'audio'
-						}
+						var userInfo = res.data.data.userInfo;
+						var data = {
+							userId: userInfo.userId,
+							trtcId: userInfo.trtcId,
+							nickName: userInfo.nickName,
+							portrait: userInfo.portrait,
+							startTime: new Date().getTime(),
+							type: 'audio'
+						};
 						uni.setStorage({
 							key: 'call',
 							data: JSON.stringify(data),
-							success: function () {
+							success: function() {
 								TUICalling.call({
-								    userID: userInfo.trtcId,
-								    type: 1
-								})
+									userID: userInfo.trtcId,
+									type: 1
+								});
 							}
 						});
-						
 					}
 				}
 			});
 		},
-		sendVideoCall(){
+		sendVideoCall() {
 			//发起视频
 			uni.showLoading({
-				title:'发起视频通话'
-			})
-			var formdata={
-				userId: this.talkTo.userId, 
-				msgType: "TRTC_VIDEO_START", 
-				content: "TRTC_VIDEO_START" 
-			}
+				title: '发起视频通话'
+			});
+			var formdata = {
+				userId: this.talkTo.userId,
+				msgType: 'TRTC_VIDEO_START',
+				content: 'TRTC_VIDEO_START'
+			};
 			this.$http.request({
 				url: '/chat/sendMsg',
 				method: 'POST',
 				data: JSON.stringify(formdata),
-				success: (res) => {
-					if(res.data.code=='200'){
-						if(res.data.data.status!=='0'){
+				success: res => {
+					if (res.data.code == '200') {
+						if (res.data.data.status !== '0') {
 							uni.showToast({
-								title:res.data.data.statusLabel,
-								icon:'none'
-							})
-							return
+								title: res.data.data.statusLabel,
+								icon: 'none'
+							});
+							return;
 						}
-						var userInfo=res.data.data.userInfo
-						var data={
-							userId:userInfo.userId,
-							trtcId:userInfo.trtcId,
-							nickName:userInfo.nickName,
-							portrait:userInfo.portrait,
-							startTime:new Date().getTime(),
-							type:'video'
-						}
+						var userInfo = res.data.data.userInfo;
+						var data = {
+							userId: userInfo.userId,
+							trtcId: userInfo.trtcId,
+							nickName: userInfo.nickName,
+							portrait: userInfo.portrait,
+							startTime: new Date().getTime(),
+							type: 'video'
+						};
 						uni.setStorage({
 							key: 'call',
 							data: JSON.stringify(data),
-							success: function () {
+							success: function() {
 								TUICalling.call({
-								    userID: userInfo.trtcId,
-								    type: 2
-								})
+									userID: userInfo.trtcId,
+									type: 2
+								});
 							}
 						});
 					}
@@ -392,61 +387,61 @@ export default {
 					this.$refs['upload'].chooseTap();
 					break;
 				case '语音':
-					this.startRecord()
+					this.startRecord();
 					break;
 				case '名片':
-				this.open()
+					this.open();
 					break;
 				case '音视频':
-				uni.showActionSheet({
-					itemList: ['视频通话','语音通话'],
-					success: (res) => {
-						switch (res.tapIndex){
-							case 0:
-							this.sendVideoCall()
-								break;
-							case 1:
-							this.sendVoiceCall()
-								break;
-							default:
-								break;
-						}
-					}
-				});
-					break;
-				case '收藏':
-				this.openpopup('popupfavorites')
-				uni.getSystemInfo({
-					success: (res)=> {
-						// #ifdef APP-PLUS
-						this.windowHeight=res.windowHeight-75
-						// #endif
-						// #ifndef APP-PLUS
-						this.windowHeight=res.windowHeight
-						// #endif
-					}
-				});
-					break;
-				case '拍摄':
-					// #ifdef APP-PLUS
-					var _this=this
 					uni.showActionSheet({
-					    itemList: ['拍摄图片', '拍摄视频'],
-					    success: (res)=> {
-							switch (res.tapIndex){
+						itemList: ['视频通话', '语音通话'],
+						success: res => {
+							switch (res.tapIndex) {
 								case 0:
-								getImage();
+									this.sendVideoCall();
 									break;
 								case 1:
-								getVideo();
+									this.sendVoiceCall();
 									break;
 								default:
 									break;
 							}
-					    },
-					    fail: function (res) {
-					        console.log(res.errMsg);
-					    }
+						}
+					});
+					break;
+				case '收藏':
+					this.openpopup('popupfavorites');
+					uni.getSystemInfo({
+						success: res => {
+							// #ifdef APP-PLUS
+							this.windowHeight = res.windowHeight - res.statusBarHeight - res.safeArea.top - res.safeAreaInsets.top;
+							// #endif
+							// #ifndef APP-PLUS
+							this.windowHeight = res.windowHeight;
+							// #endif
+						}
+					});
+					break;
+				case '拍摄':
+					// #ifdef APP-PLUS
+					var _this = this;
+					uni.showActionSheet({
+						itemList: ['拍摄图片', '拍摄视频'],
+						success: res => {
+							switch (res.tapIndex) {
+								case 0:
+									getImage();
+									break;
+								case 1:
+									getVideo();
+									break;
+								default:
+									break;
+							}
+						},
+						fail: function(res) {
+							console.log(res.errMsg);
+						}
 					});
 					function getImage() {
 						//拍照事件
@@ -465,14 +460,15 @@ export default {
 								);
 							},
 							function(e) {
-								console.log(e)
+								console.log(e);
 							},
 							{
-								filename:'file:///storage/emulated/0/Documents/weiliao/'
+								filename: 'file:///storage/emulated/0/Documents/weiliao/'
 							}
 						);
 					}
-					function getVideo(){//拍摄视频
+					function getVideo() {
+						//拍摄视频
 						var cmr = plus.camera.getCamera();
 						cmr.startVideoCapture(
 							function(p) {
@@ -488,10 +484,10 @@ export default {
 								);
 							},
 							function(e) {
-								console.log(e)
+								console.log(e);
 							},
 							{
-								filename:'file:///storage/emulated/0/Documents/weiliao/'
+								filename: 'file:///storage/emulated/0/Documents/weiliao/'
 							}
 						);
 					}
@@ -508,8 +504,8 @@ export default {
 							function(e) {
 								//压缩后
 								// openFile(e.target)
-								uni.showLoading({title:'发送中'})
-								sendPhoto(e.target)//发送
+								uni.showLoading({ title: '发送中' });
+								sendPhoto(e.target); //发送
 							},
 							function(error) {
 								console.log('压缩图片失败，请稍候再试');
@@ -523,13 +519,13 @@ export default {
 							{
 								src: url, //src: (String 类型 )压缩转换原始路径
 								// filename: name, //压缩后的路径
-								quality: 'medium'//压缩级别low medium high
+								quality: 'medium' //压缩级别low medium high
 							},
 							function(e) {
 								//压缩后
 								// openFile(e.tempFilePath)
-								uni.showLoading({title:'发送中'})
-								sendVideo(e.tempFilePath)//发送
+								uni.showLoading({ title: '发送中' });
+								sendVideo(e.tempFilePath); //发送
 							},
 							function(error) {
 								console.log('压缩视频失败，请稍候再试');
@@ -549,43 +545,45 @@ export default {
 							}
 						});
 					}
-					
-					function sendPhoto(filePath){//发送图片
+
+					function sendPhoto(filePath) {
+						//发送图片
 						_this.$http.uploadFile({
 							url: '/file/upload',
 							filePath: filePath,
 							name: 'file',
 							fileType: 'image',
-							success: (res) => {
-								var data=JSON.parse(res.data)
+							success: res => {
+								var data = JSON.parse(res.data);
 								if (data.code == 200) {
-									var msg={
-										name:data.data.fileName,
-										url:data.data.fullPath
-									}
-									_this.sendMsg(JSON.stringify(msg),'IMAGE')
+									var msg = {
+										name: data.data.fileName,
+										url: data.data.fullPath
+									};
+									_this.sendMsg(JSON.stringify(msg), 'IMAGE');
 								}
 							}
-						})
+						});
 					}
-					function sendVideo(filePath){//发送视频
+					function sendVideo(filePath) {
+						//发送视频
 						_this.$http.uploadFile({
 							url: '/file/uploadVideo',
 							filePath: filePath,
 							name: 'file',
 							fileType: 'video',
-							success: (res) => {
-								var data=JSON.parse(res.data)
+							success: res => {
+								var data = JSON.parse(res.data);
 								if (data.code == 200) {
-									var msg={
-										name:data.data.fileName,
-										videoUrl:data.data.fullPath,
-										url:data.data.screenShot
-									}
-									_this.sendMsg(JSON.stringify(msg),'VIDEO')
+									var msg = {
+										name: data.data.fileName,
+										videoUrl: data.data.fullPath,
+										url: data.data.screenShot
+									};
+									_this.sendMsg(JSON.stringify(msg), 'VIDEO');
 								}
 							}
-						})
+						});
 					}
 					// #endif
 					break;
@@ -595,15 +593,15 @@ export default {
 			}
 		},
 		sendMsg(e, msgType) {
-			if(!e){
-				return
+			if (!e) {
+				return;
 			}
 			this.$fc.pushOutMsg({
-				msgContent:e,
-				msgType:msgType,
-				windowType:this.talkTo.windowType,
-				userId:this.talkTo.userId
-			})
+				msgContent: e,
+				msgType: msgType,
+				windowType: this.talkTo.windowType,
+				userId: this.talkTo.userId
+			});
 			this.msg = '';
 			// #ifdef H5
 			this.msgFocus = false;
@@ -640,36 +638,32 @@ export default {
 			);
 		},
 		scrolltoBottom() {
-			if (this.timer) {
-				clearTimeout(this.timer);
-			}
-			this.$nextTick(()=>{
+			this.$nextTick(() => {
 				this.timer = setTimeout(() => {
-						uni.pageScrollTo({
-							scrollTop: 999999,
-							duration: 10
-						});
-						this.$forceUpdate()
+					uni.pageScrollTo({
+						scrollTop: 9999999,
+						duration: 10
+					});
 				}, 100);
-			})
+			});
 		}
 	},
 	onNavigationBarButtonTap(e) {
-		if(!this.showtitleNViewBtns){
-			return
+		if (!this.showtitleNViewBtns) {
+			return;
 		}
 		switch (e.index) {
 			case 0:
-			if(this.talkTo.windowType=='GROUP'){
-				uni.navigateTo({
-					url: '../groupInfo/detail?param=' + this.talkTo.userId
-				});
-			}
-			if(this.talkTo.windowType=='SINGLE'){
-				uni.navigateTo({
-					url: '../personInfo/detail?param=' + this.talkTo.userId
-				});
-			}
+				if (this.talkTo.windowType == 'GROUP') {
+					uni.navigateTo({
+						url: '../groupInfo/detail?param=' + this.talkTo.userId
+					});
+				}
+				if (this.talkTo.windowType == 'SINGLE') {
+					uni.navigateTo({
+						url: '../personInfo/detail?param=' + this.talkTo.userId
+					});
+				}
 				break;
 			default:
 				break;
@@ -747,7 +741,7 @@ export default {
 .zfb-tk-send-tool-c .zfb-tk-send-tool-btn {
 	transition: color 0.5s;
 }
-.zfb-tk-send-tool-input-box{
+.zfb-tk-send-tool-input-box {
 	overflow: auto;
 	width: 100%;
 	margin: 0 12rpx;
@@ -759,7 +753,7 @@ export default {
 	box-sizing: border-box;
 }
 .zfb-tk-send-tool .zfb-tk-send-tool-input {
-	padding:0 24rpx;
+	padding: 0 24rpx;
 	box-sizing: border-box !important;
 	width: 100%;
 	background: #fff;
@@ -811,16 +805,19 @@ export default {
 	position: fixed;
 	border-radius: 50%;
 	background-color: #f8f8f8;
-	box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
 	padding: 20rpx;
-	display: flex;flex-direction: row;align-items: center;justify-content: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 }
-.popsendCard{
+.popsendCard {
 	display: flex;
 	background-color: #fff;
 	overflow: auto;
 }
-.popsendCard-close{
+.popsendCard-close {
 	width: 100%;
 	text-align: center;
 	height: 70rpx;
@@ -832,16 +829,21 @@ export default {
 	left: 0;
 	z-index: 9999;
 }
-.wxemojitool{
+.wxemojitool {
 	height: 558rpx;
 }
-.wxemojitool-content{
-	display: flex;flex-direction: row;flex-wrap: wrap;
+.wxemojitool-content {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
-.wxemojitool-item{
+.wxemojitool-item {
 	font-size: 44rpx;
 	width: 93rpx;
 	height: 93rpx;
-	display: flex;flex-direction: row;justify-content: center;align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
 </style>

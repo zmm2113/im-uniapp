@@ -60,7 +60,8 @@
 				agree: false,
 			}
 		},
-		onLoad() {},
+		onLoad() {
+		},
 		methods: {
 			changePassword() {
 				this.showPassword = !this.showPassword;
@@ -185,7 +186,14 @@
 						success: (res) => {
 							if (res.data.code == 200) {
 								uni.showToast({
-									title:'注册成功'
+									title:'注册成功',
+									complete() {
+										setTimeout(()=>{
+											uni.redirectTo({
+												url:'/wx/login/index'
+											})
+										},1500)
+									}
 								})
 							}
 						}

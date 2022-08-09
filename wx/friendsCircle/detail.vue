@@ -6,11 +6,15 @@
 export default {
 	data() {
 		return {
-			detail: {}
+			detail: {},
+			showtitleNViewBtns:false
 		};
 	},
 	onLoad(e) {
 		this.getInfo(e.topicId)
+	},
+	mounted() {
+		this.$fc.setTitleNViewBtns(0,'')
 	},
 	computed:{
 		userInfo(){
@@ -40,21 +44,23 @@ export default {
 							replyList:item.replyList,
 						}
 						this.detail=detail
+						if(this.detail.canDeleted){
+							this.showtitleNViewBtns=true
+							this.$fc.setTitleNViewBtns(0,'\ue623')
+						}
 					}
 				}
 			});
 		}
 	},
 	onNavigationBarButtonTap(e) {
+		if(!this.showtitleNViewBtns){
+			return
+		}
 		switch (e.index) {
 			case 0: //更多
-			var itemList=[]
-			if(this.detail.canDeleted){
-				itemList=['删除']
-				// itemList: ['设为隐私', '设为公开', '删除'],
-			}
 			uni.showActionSheet({
-				itemList: itemList,
+				itemList: ['删除'],
 				success: (res) => {
 					this.$http.request({
 						url: '/topic/removeTopic/'+this.detail.topicId,

@@ -3,16 +3,19 @@
 	<cell>
 		<!-- #endif -->
 		<view class="zfb-tk-item" :class="[{ 'zfb-tk-msgleft': item.type == 1 }, { 'zfb-tk-msgright': item.type == 2 }, { 'zfb-tk-msgcenter': item.type == 3 }]">
+			<openTool :class="[{ 'openTool-msgleft': item.type == 1 }, { 'openTool-msgright': item.type == 2 }]" :talkTo="talkTo" :ref="'toolx'+itemKey" :data="item" :itemKey="itemKey"></openTool>
 			<image class="zfb-tk-avatar" @click="gochatOne(item)" v-if="item.type !== 3" :src="item.portrait" mode="aspectFill"></image>
 			<view class="zfb-tk-item-contentx" @longpress="longpressItem($event,itemKey,item)">
 				<view class="zfb-tk-item-contentx-name" v-if="item.windowType=='GROUP'">{{item.nickName}}</view>
 				<view class="zfb-tk-item-contentx-c">
 					<view class="zfb-tk-time-notsend wxfont fssb" @click="tryagin(item, itemKey)" v-if="item.sendtype && item.sendtype == 'error'"></view>
-					<view>
-						<openTool :talkTo="talkTo" class="openTool" :ref="'toolx'+itemKey" :data="item" :itemKey="itemKey"></openTool>
+					<view class="zfb-tk-item-contentx-c-tool">
 						<view class="zfb-tk-item-c" v-if="item.msgType == 'TEXT'">
 							<text>{{ item.content }}</text>
-						</view>	
+						</view>
+						<view class="zfb-tk-item-c" v-if="item.msgType == 'ALERT'">
+							<text>{{ item.content }}</text>
+						</view>
 						<view class="zfb-tk-item-c-LOCATION" v-if="item.msgType == 'LOCATION'" @click="goMap(returnParse(item.content))">	
 							<view class="zfb-tk-item-c-LOCATION-name">{{ returnParse(item.content).name }}</view>
 							<view class="zfb-tk-item-c-LOCATION-address">{{ returnParse(item.content).address }}</view>	
@@ -59,11 +62,11 @@
 							</view>
 							<view class="zfb-tk-item-c-CARD-card">推荐名片</view>
 						</view>
+						<view v-if="showTrs" class="zfb-tk-item-c-VOICE-tras-text">{{returnParse(item.content).text}}</view>
+						<view class="zfb-tk-time" v-if="item.time">{{ timeDetia(item.time) }}</view>
 					</view>
 				</view>
 			</view>
-			<view v-if="showTrs" class="zfb-tk-item-c-VOICE-tras-text">{{returnParse(item.content).text}}</view>
-			<view class="zfb-tk-time" v-if="item.time">{{ timeDetia(item.time) }}</view>
 		</view>
 		<!-- #ifdef APP-NVUE -->
 	</cell>
@@ -257,10 +260,11 @@ export default {
 		gochatOne(e) {
 			var source=e.windowType=="GROUP" ? '7' : '3'
 			uni.navigateTo({
-				url:'../personInfo/detail?param='+e.userId+'&source='+source
+				url:'../personInfo/detail?param='+e.personId+'&source='+source
 			})
 		},
 		longpressItem(e,i,v) {//长按回调
+			console.log(e)
 			this.$emit('longpressItem',e,i,v)
 			if(this.itemKey==this.longTapItemKey){
 				this.$refs['toolx'+this.itemKey].showTab();
@@ -438,12 +442,10 @@ $rightbgcolor: #4cd964;
 
 .zfb-tk-msgright .zfb-tk-time {
 	text-align: right;
-	padding-right: 92rpx;
 }
 
 .zfb-tk-msgleft .zfb-tk-time {
 	text-align: left;
-	padding-left: 92rpx;
 }
 .zfb-tk-time-notsend {
 	font-size: 64rpx;
@@ -475,6 +477,7 @@ $rightbgcolor: #4cd964;
 	height: 150rpx;
 }
 .zfb-tk-item-c-img{
+	border: 1px #eee solid;
 	max-width: 310rpx;
 	max-height: 450rpx;
 }
@@ -538,11 +541,9 @@ $rightbgcolor: #4cd964;
 }
 .zfb-tk-msgright .zfb-tk-item-c-VOICE-tras-text{
 	text-align: right;
-	padding-right: 92rpx;
 }
 .zfb-tk-msgleft .zfb-tk-item-c-VOICE-tras-text{
 	text-align: left;
-	padding-left: 92rpx;
 }
 .zfb-tk-msgleft .zfb-tk-item-c-VOICE-msg{
 	flex-direction: row-reverse;
@@ -593,19 +594,7 @@ $rightbgcolor: #4cd964;
 	color: #666;
 	margin-top: 24rpx;
 }
-.openTool{
-	width: 552rpx;
-	position: absolute;
-	bottom: 100%;
-}
-.zfb-tk-msgleft .openTool{
-	left: 0;
-	right: auto;
-}
-.zfb-tk-msgright .openTool{
-	left: auto;
-	right: 0;
-}
+
 .zfb-tk-item-contentx{
 	position: relative;
 	display: flex;
@@ -639,5 +628,12 @@ $rightbgcolor: #4cd964;
 }
 .zfb-tk-TRTC .wxfont{
 	font-size: 42rpx;
+}
+.zfb-tk-item-contentx-c-tool{display: flex;flex-direction: column;}
+.zfb-tk-msgleft .zfb-tk-item-contentx-c-tool{
+	align-items: flex-start;
+}
+.zfb-tk-msgright .zfb-tk-item-contentx-c-tool{
+	align-items: flex-end;
 }
 </style>

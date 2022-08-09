@@ -182,7 +182,7 @@
 				// #endif
 				// #ifdef H5
 				// todo
-				var cid='8fa03dcbc51021093bfbdca6da624755'
+				var cid=''
 				formData['cid'] = cid
 				// #endif
 				uni.setStorageSync('cid', cid);
@@ -204,48 +204,7 @@
 							data:JSON.stringify(formData),
 							success: (res) => {
 								if (res.data.code == 200) {
-									uni.setStorageSync('Authorization', res.data.data.token);
-									this.$store.dispatch('get_UserInfo').then(res=>{
-										var nickName=res.nickName
-										var portrait=res.portrait
-										this.$http.request({
-											url: '/trtc/getSign',
-											success: (res) => {
-												var sdkAppID=res.data.data.appId
-												var userID=res.data.data.userId
-												var userSig=res.data.data.sign
-												TUICalling.login({//登录音视频
-												    sdkAppID: sdkAppID, 
-												    userID: userID,
-												    userSig: userSig
-												},(res) => {
-												    console.log('音视频登录成功')
-													TUICalling.setUserNickname({
-													    nickName: nickName
-													})
-													TUICalling.setUserAvatar({
-													    avatar: portrait
-													})
-													plus.io.requestFileSystem(plus.io.PRIVATE_WWW, function(fs) {
-													    fs.root.getFile('/static/longcall.mp3', {
-													        create: false
-													    }, function(fileEntry) {
-													        fileEntry.file(function(file) {
-																TUICalling.setCallingBell({
-																    ringtone: file.fullPath
-																},(res) => {
-																	console.log(JSON.stringify(res))
-																})
-															});
-													    });
-													});
-												})
-											}
-										});
-									})
-									uni.reLaunch({
-										url: '../tabbar1/index'
-									})
+									this.loginDone(res.data.data.token)
 								}
 							}
 						});
@@ -257,10 +216,7 @@
 							data:JSON.stringify(formData),
 							success: (res) => {
 								if (res.data.code == 200) {
-									uni.setStorageSync('Authorization', res.data.data.token);
-									uni.reLaunch({
-										url: '../tabbar1/index'
-									})
+									this.loginDone(res.data.data.token)
 								}
 							}
 						});
@@ -273,6 +229,55 @@
 					});
 				}
 			},
+			loginDone(token){
+				uni.setStorageSync('Authorization', token);
+				// #ifdef H5
+				this.$socketTask.connectSocket()
+				// #endif
+				this.$store.dispatch('get_UserInfo').then(res=>{
+					// #ifdef APP-PLUS
+					var nickName=res.nickName
+					var portrait=res.portrait
+					this.$http.request({
+						url: '/trtc/getSign',
+						success: (res) => {
+							var sdkAppID=res.data.data.appId
+							var userID=res.data.data.userId
+							var userSig=res.data.data.sign
+							TUICalling.login({//登录音视频
+							    sdkAppID: sdkAppID, 
+							    userID: userID,
+							    userSig: userSig
+							},(res) => {
+							    console.log('音视频登录成功')
+								TUICalling.setUserNickname({
+								    nickName: nickName
+								})
+								TUICalling.setUserAvatar({
+								    avatar: portrait
+								})
+								plus.io.requestFileSystem(plus.io.PRIVATE_WWW, function(fs) {
+								    fs.root.getFile('/static/longcall.mp3', {
+								        create: false
+								    }, function(fileEntry) {
+								        fileEntry.file(function(file) {
+											TUICalling.setCallingBell({
+											    ringtone: file.fullPath
+											},(res) => {
+												console.log(JSON.stringify(res))
+											})
+										});
+								    });
+								});
+							})
+						}
+					});
+					// #endif
+				})
+				uni.reLaunch({
+					url: '../tabbar1/index'
+				})
+			}
 		}
 	}
 </script>

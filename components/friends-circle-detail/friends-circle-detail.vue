@@ -117,13 +117,10 @@ export default {
 	},
 	methods: {
 		scrolltoBottom() {
-			if (this.timer) {
-				clearTimeout(this.timer);
-			}
 			this.$nextTick(()=>{
 				this.timer = setTimeout(() => {
 					uni.pageScrollTo({
-						scrollTop: 999999,
+						scrollTop: 9999999,
 						duration: 10
 					});
 					this.$forceUpdate()

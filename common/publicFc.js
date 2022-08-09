@@ -344,6 +344,7 @@ export default {
 				fromInfo:resbody.fromInfo,//来源信息
 				groupInfo:resbody.groupInfo,//群信息
 				userId: userId,//talktoId
+				personId:resbody.fromInfo.userId,
 				msgId:resbody.msgId,//消息Id
 				disturb:resbody.msgContent.disturb,//是否静默消息
 				top:resbody.msgContent.top//是否置顶
@@ -383,6 +384,7 @@ export default {
 							fromInfo:resbody.fromInfo,//来源信息
 							groupInfo:resbody.groupInfo,//群信息
 							userId: userId,//talktoId
+							personId:resbody.fromInfo.userId,
 							msgId:resbody.msgId,//消息Id
 							disturb:resbody.msgContent.disturb,//是否静默消息
 							top:resbody.msgContent.top//是否置顶
@@ -400,6 +402,7 @@ export default {
 		msgType,//消息类型
 		windowType,//聊天室类型 SINGLE GROUP
 		userId,//聊天对象ID
+		personId,//发送人ID
 		time,//时间
 		type,//显示类型 1左侧 2右侧 3中间
 		fromInfo,//来源
@@ -409,6 +412,9 @@ export default {
 	}) {
 		var msgTypeLabel = ''; //消息类型
 		if (msgType == 'TEXT') {
+			msgTypeLabel = msgContent;
+		}
+		if (msgType == 'ALERT') {
 			msgTypeLabel = msgContent;
 		}
 		if (msgType == 'IMAGE') {
@@ -447,7 +453,6 @@ export default {
 			store.dispatch('getChatList');
 			var chatWindowData = store.state.chatDatalist[userId].list
 			var chatListInfo = store.state.chatlist[userId]
-			console.log(chatListInfo)
 			// 找到数组中对象属性值一样的对象并返回
 			function arrfindobject({arr,object,key}){
 				var result=arr.find(item =>{
@@ -459,12 +464,12 @@ export default {
 				msgId:msgId
 			},key:'msgId'})
 			if(same){
-				console.log('一样')
 				return
 			}
 			//离线消息体
 			var msgOffline = {
 				userId: userId,
+				personId: personId,
 				nickName: fromInfo.nickName,
 				portrait: fromInfo.portrait,
 				msgType: msgType,
@@ -480,11 +485,12 @@ export default {
 			if(windowType=='SINGLE'){
 				msgList = {
 					userId: userId,
+					personId: personId,
 					nickName: fromInfo.nickName,
 					portrait: fromInfo.portrait,
 					content: msgTypeLabel,
 					time: time,
-					num: disturb=='Y' ? 'dot' : (chatListInfo.num+'' ? chatListInfo.num + 1 : 1),
+					num: disturb=='Y' ? 'dot' : (chatListInfo.num ? chatListInfo.num + 1 : 1),
 					windowType: windowType,
 					disturb:disturb,//是否静默消息
 					top:top,//是否置顶
@@ -494,11 +500,12 @@ export default {
 			if(windowType=='GROUP'){
 				msgList = {
 					userId: userId,
+					personId: personId,
 					nickName: groupInfo.nickName,
 					portrait: groupInfo.portrait,
 					content: msgTypeLabel,
 					time: time,
-					num: disturb=='Y' ? 'dot' : (chatListInfo.num+'' ? chatListInfo.num + 1 : 1),
+					num: disturb=='Y' ? 'dot' : (chatListInfo.num ? chatListInfo.num + 1 : 1),
 					windowType: windowType,
 					disturb:disturb,//是否静默消息
 					top:top,//是否置顶
@@ -527,6 +534,9 @@ export default {
 	}) {
 		var msgTypeLabel = ''; //消息类型
 		if (msgType == 'TEXT') {
+			msgTypeLabel = msgContent;
+		}
+		if (msgType == 'ALERT') {
 			msgTypeLabel = msgContent;
 		}
 		if (msgType == 'IMAGE') {
@@ -581,11 +591,12 @@ export default {
 				url='/chat/sendMsg'
 				msgList = {
 					userId: userId,
+					personId: userInfo.userId,
 					nickName: localData.fromInfo.nickName,
 					portrait: localData.fromInfo.portrait,
 					content: msgTypeLabel,
 					time: time,
-					num: chatListInfo.disturb=='Y' ? 'dot' : (chatListInfo.num+'' ? chatListInfo.num : 0),
+					num: chatListInfo.disturb=='Y' ? 'dot' : (chatListInfo.num ? chatListInfo.num : 0),
 					windowType: windowType,
 					disturb:chatListInfo.disturb ? chatListInfo.disturb : 'N',//是否静默消息
 					top:chatListInfo.top ? chatListInfo.top : 'N',//是否置顶
@@ -601,11 +612,12 @@ export default {
 				url='/group/sendMsg'
 				msgList = {
 					userId: userId,
+					personId: userInfo.userId,
 					nickName: localData.groupInfo.nickName,
 					portrait: localData.groupInfo.portrait,
 					content: msgTypeLabel,
 					time: time,
-					num: chatListInfo.disturb=='Y' ? 'dot' : (chatListInfo.num+'' ? chatListInfo.num : 0),
+					num: chatListInfo.disturb=='Y' ? 'dot' : (chatListInfo.num ? chatListInfo.num : 0),
 					windowType: windowType,
 					disturb:chatListInfo.disturb ? chatListInfo.disturb : 'N',//是否静默消息
 					top:chatListInfo.top ? chatListInfo.top : 'N',//是否置顶
@@ -615,6 +627,7 @@ export default {
 			//离线消息体 自己的消息
 			var msgOffline = {
 				userId: userInfo.userId,
+				personId: userInfo.userId,
 				nickName: userInfo.nickName,
 				portrait: userInfo.portrait,
 				msgType: msgType,

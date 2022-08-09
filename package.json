@@ -1,6 +1,6 @@
 {
   "name": "微聊",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -11,5 +11,6 @@
   },
   "author": "zmm2113@qq.com",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+  }
 }

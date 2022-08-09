@@ -17,7 +17,7 @@
 						<view class="ctext" v-if="v.topicType=='TEXT'">
 							<text>{{returnParse(v.topicContent).content}}</text>
 						</view>
-						<image v-if="v.topicType=='IMAGE'" class="wxmsglist-right-cimg" :src="returnParse(v.topicContent).files[0].url" mode=""></image>
+						<image v-if="v.topicType=='IMAGE'" class="wxmsglist-right-cimg" :src="returnParse(v.topicContent).files[0].url" mode="aspectFill"></image>
 						<view class="friendsCircle-content-video" v-if="v.topicType=='VIDEO'">
 							<image class="friendsCircle-content-video-icon" src="../../static/img/bf.png" mode="aspectFill"></image>
 							<image class="friendsCircle-content-video-img" :src="returnParse(v.topicContent).files[0].url" mode="aspectFill"></image>

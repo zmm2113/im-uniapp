@@ -31,13 +31,34 @@ export default {
 			limit:9,
 			location:'',
 			form:{
-				files:[],
+				files:[
+					// {
+					// 	name:'1',
+					// 	url:'../../static/img/avatar/avatar1.jpg',
+					// 	type:'WAITING'
+					// },
+					// {
+					// 	name:'2',
+					// 	url:'../../static/img/avatar/avatar2.jpg',
+					// 	type:'IMAGE'
+					// },
+					// {
+					// 	name:'3',
+					// 	url:'../../static/img/avatar/avatar3.jpg',
+					// 	videoUrl:'../../static/img/avatar/avatar3.jpg',
+					// 	type:'VIDEO'
+					// }
+				],
 				content:'',
 			}
 		};
 	},
+	computed:{
+		userInfo(){
+			return this.$store.state.userInfo
+		}
+	},
 	onLoad(e) {
-		console.log(e)
 	},
 	methods: {
 		returnParse(txt) {

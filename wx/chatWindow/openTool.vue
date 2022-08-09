@@ -1,5 +1,5 @@
 <template>
-	<view @touchmove.stop.prevent="moveHandle('touchmove')" @click="moveHandle('click')" v-if="show">
+	<view class="openTool" :class="itemKey==0 ? 'frist-openTool' : ''" @touchmove.stop.prevent="moveHandle('touchmove')" @click="moveHandle('click')" v-if="show">
 		<view class="openTool-wx" :animation="animationData">
 			<view class="openTool-wx-list" v-if="data">
 				<view class="openTool-wx-list-item" @click="copyText(data.content)" v-if="data.msgType == 'TEXT'">
@@ -50,9 +50,6 @@ export default {
 		
 	},
 	computed: {
-		chatWindowData() {
-			return this.$store.state.chatDatalist[this.talkTo.userId]
-		}
 	},
 	mounted() {
 		var animation = uni.createAnimation({
@@ -93,8 +90,19 @@ export default {
 			});
 		},
 		shanchu(){
-			this.chatWindowData.splice(this.itemKey, 1);
-			this.$store.dispatch('updateChatById', { userId: this.data.userId, data: this.chatWindowData });
+			this.$store.dispatch('getchatDatalist');
+			this.$store.dispatch('getChatList');
+			var chatWindowData = this.$store.state.chatDatalist[this.talkTo.userId].list
+			var chatListInfo = this.$store.state.chatlist[this.talkTo.userId]
+			if((this.itemKey+1)==chatWindowData.length){
+				chatListInfo['content']=''
+				this.$store.dispatch('updateChatListInfoById',{
+					userId: this.talkTo.userId,
+					data: chatListInfo
+				});
+			}
+			chatWindowData.splice(this.itemKey, 1);
+			this.$store.dispatch('updateChatById', { userId: this.talkTo.userId,data: chatWindowData });
 		},
 		showAnimation() {
 			this.animation.opacity(1).step();
@@ -121,8 +129,13 @@ export default {
 };
 </script>
 <style scoped>
-.openTool-wx {
+/* 黑色版 */
+.openTool{
 	width: 552rpx;
+	position: absolute;
+	bottom: 100%;
+}
+.openTool-wx {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
@@ -139,17 +152,10 @@ export default {
 	left: 0;
 	z-index: 1;
 }
-.openTool-wx-icon {
-	width: 0px;
-	height: 0px;
-	border: 5px solid transparent;
-	border-top-color: #4C4C4C;
-	margin: 0 auto;
-	margin-bottom: -5px;
-}
+
 .openTool-wx-list {
 	width: 100%;
-	padding: 24rpx;
+	padding: 6rpx 24rpx;
 	box-sizing: border-box;
 	background-color: #4C4C4C;
 	border-radius: 10rpx;
@@ -159,18 +165,12 @@ export default {
 	flex-wrap: wrap;
 }
 .openTool-wx-list-item {
-	margin: 12rpx;
+	margin:6rpx 24rpx;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
-.openTool-wx-list-item-icon {
-	color: #fff;
-	margin-bottom: 6rpx;
-}
-.openTool-wx-list-item-icon .wxfont {
-	font-size: 42rpx;
-}
+
 .openTool-wx-list-item .text {
 	color: #fff;
 	font-size: 28rpx;
@@ -180,10 +180,49 @@ export default {
 .openTool-wx-list-item:nth-last-child(1) .text{
 	border: none;
 }
-.zfb-tk-msgright .openTool-wx-icon{
+
+.openTool-wx-list-item-icon {
+	color: #fff;
+	margin-bottom: 6rpx;
+}
+.openTool-wx-icon {
+	width: 0px;
+	height: 0px;
+	border: 5px solid transparent;
+	border-top-color: #4C4C4C;
+	margin: 0 auto;
+	margin-bottom: -5px;
+}
+.openTool-wx-list-item-icon .wxfont {
+	font-size: 42rpx;
+}
+.openTool-msgright{
+	margin-left: auto;
+	/* margin-right: 92rpx; */
+	right: 92rpx;
+}
+.openTool-msgleft{
+	margin-right: auto;
+	/* margin-left: 92rpx; */
+	left: 92rpx;
+}
+.openTool-msgright .openTool-wx-icon{
 	margin-right: 24rpx;
 }
-.zfb-tk-msgleft .openTool-wx-icon{
+.openTool-msgleft .openTool-wx-icon{
 	margin-left: 24rpx;
+}
+.frist-openTool{
+	bottom: auto;
+	top: 100%;
+}
+.frist-openTool .openTool-wx{
+	flex-direction: column-reverse;
+}
+.frist-openTool .openTool-wx .openTool-wx-icon{
+	border-bottom-color: #4C4C4C;
+	border-top-color: transparent;
+	margin-bottom: 0;
+	margin-top: -5px;
 }
 </style>

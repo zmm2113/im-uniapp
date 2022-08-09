@@ -21,7 +21,7 @@
 			)
 			console.log(consoleImgs.fz)
 			// todo 下列两行
-			uni.setStorageSync('device', 'android');
+			uni.setStorageSync('device', 'H5');
 			uni.setStorageSync('version', versionName);
 			this.$http.request({
 				url: '/common/getVersion',
@@ -43,6 +43,9 @@
 				plus.navigator.closeSplashscreen();
 				// #endif
 			} else {
+				// #ifdef H5
+				this.$socketTask.connectSocket()
+				// #endif
 				this.$store.dispatch('get_UserInfo').then(res=>{
 					// #ifdef APP-PLUS
 					var nickName=res.nickName

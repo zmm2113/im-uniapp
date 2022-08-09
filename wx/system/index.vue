@@ -105,17 +105,20 @@
 				uni.reLaunch({
 					url:'../../pages/wxindex/index'
 				}).then(res=>{
+					uni.removeStorageSync('Authorization')
 					// 退出登录
 					this.$http.request({
 						url: '/my/logout',
 						success: (res) => {}
 					});
+					// #ifdef H5
+					this.$socketTask.socketTaskClose()
+					// #endif
 					// #ifdef APP-PLUS
 					TUICalling.logout((res) => {
 					    console.log(JSON.stringify(res))
 					})
 					// #endif
-					uni.removeStorageSync('Authorization')
 				})
 			},
 			itemClick0(e,i){
