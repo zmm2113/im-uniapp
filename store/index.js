@@ -99,6 +99,12 @@ import { createStore } from 'vuex'
 			retdata[getKey]['list']=data.data
 			uni.setStorageSync(context.state.userInfo.userId+'_'+'chatData', JSON.stringify(retdata));
 		},
+		updateChatObjById(context,data) {//更新聊天数据对象
+			var getKey=data.userId
+			var retdata=publicFc.getKeyObjectStorage(context.state.userInfo.userId+'_'+'chatData')
+			retdata[getKey]=data.data
+			uni.setStorageSync(context.state.userInfo.userId+'_'+'chatData', JSON.stringify(retdata));
+		},
 		getChatList(context) {//获取聊天记录列表
 			var data=publicFc.getKeyObjectStorage(context.state.userInfo.userId+'_'+'chatlistData')
 			var sum=0
@@ -127,6 +133,7 @@ import { createStore } from 'vuex'
 			var data1=publicFc.getKeyObjectStorage(context.state.userInfo.userId+'_'+'chatData')
 			return new Promise(function(resolve, reject) {
 				if(!data1[userId]){
+					console.log('初始化聊天')
 					switch (windowType){
 						case 'SINGLE':
 						http.request({

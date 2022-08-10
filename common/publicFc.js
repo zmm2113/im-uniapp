@@ -655,6 +655,7 @@ export default {
 						if (res.data.data.status !== '0') {
 							msgSendType = 'error';
 							msgOffline.sendtype = msgSendType;
+							msgOffline.msgId=res.data.data.msgId
 							msgNotSend.content = res.data.data.statusLabel;
 							msgList.content = res.data.data.statusLabel;
 						} else {

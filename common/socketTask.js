@@ -39,7 +39,9 @@ export default {
 		// 监听异常
 		uni.onSocketError(res => {
 			console.log('WebSocket连接打开失败，正在尝试重新打开！');
-			this.connectSocket()
+			setTimeout(()=>{
+				this.connectSocket()
+			},15000)
 		});
 		
 	},

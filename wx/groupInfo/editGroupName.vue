@@ -43,11 +43,18 @@ export default {
 					success: (res) => {
 						if (res.data.code == 200) {
 							var data=JSON.parse(JSON.stringify(this.$store.state.chatlist[this.form.groupId]))
+							var ChatData=JSON.parse(JSON.stringify(this.$store.state.chatDatalist[this.form.groupId]))
+							ChatData.groupInfo.nickName=this.form.name
+							this.$store.dispatch('updateChatObjById', {
+								userId: this.form.groupId,
+								data: ChatData
+							})
 							data.nickName=this.form.name
 							this.$store.dispatch('updateChatListInfoById', {
 								userId: this.form.groupId,
 								data: data
 							})
+							
 							this.$store.dispatch('getChatList')
 							uni.navigateBack({
 								delta:1
