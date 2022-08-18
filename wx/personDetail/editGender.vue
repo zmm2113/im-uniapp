@@ -21,7 +21,7 @@ export default {
 				value:'1'
 			},{
 				label:'女',
-				value:'0'
+				value:'2'
 			}]
 		};
 	},

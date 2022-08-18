@@ -227,13 +227,13 @@ export default {
 				return seconds;
 				break;
 			case 'ymd':
-				return year + '-' + month + '-' + strDate;
+				return year + '/' + month + '/' + strDate;
 				break;
 			case 'hmmss':
 				return hours + ':' + minutes + ':' + seconds;
 				break;
 			default:
-				return year + '-' + month + '-' + strDate + ' ' + hours + ':' + minutes + ':' + seconds;
+				return year + '/' + month + '/' + strDate + ' ' + hours + ':' + minutes + ':' + seconds;
 				break;
 		}
 	},

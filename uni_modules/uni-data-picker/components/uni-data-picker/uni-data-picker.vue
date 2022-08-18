@@ -10,15 +10,15 @@
 					<scroll-view v-else-if="inputSelected.length" class="selected-area" scroll-x="true">
 						<view class="selected-list">
 							<view class="selected-item" v-for="(item,index) in inputSelected" :key="index">
-								<text>{{item.text}}</text><text v-if="index<inputSelected.length-1"
+								<text class="text-color">{{item.text}}</text><text v-if="index<inputSelected.length-1"
 									class="input-split-line">{{split}}</text>
 							</view>
 						</view>
 					</scroll-view>
 					<text v-else class="selected-area placeholder">{{placeholder}}</text>
-					<view v-show="clearIcon && !readonly && inputSelected.length" class="icon-clear"
+					<view v-if="clearIcon && !readonly && inputSelected.length" class="icon-clear"
 						@click.stop="clear">
-						<uni-icons type="clear" color="#e1e1e1" size="14"></uni-icons>
+						<uni-icons type="clear" color="#c0c4cc" size="24"></uni-icons>
 					</view>
 					<view class="arrow-area" v-if="(!clearIcon || !inputSelected.length) && !readonly ">
 						<view class="input-arrow"></view>
@@ -182,13 +182,13 @@
 			},
 			show() {
 				this.isOpened = true
-				this.$nextTick(() => {
+				setTimeout(() => {
 					this.$refs.pickerView.updateData({
 						treeData: this._treeData,
 						selected: this.selected,
 						selectedIndex: this.selectedIndex
 					})
-				})
+				}, 200)
 				this.$emit('popupopened')
 			},
 			hide() {
@@ -212,7 +212,9 @@
 			},
 			onchange(e) {
 				this.hide()
-				this.inputSelected = e
+				this.$nextTick(() => {
+					this.inputSelected = e;
+				})
 				this._dispatchEvent(e)
 			},
 			_processReadonly(dataList, value) {
@@ -292,8 +294,9 @@
 	}
 </script>
 
-<style scoped>
+<style >
 	.uni-data-tree {
+		flex: 1;
 		position: relative;
 		font-size: 14px;
 	}
@@ -310,12 +313,14 @@
 		align-items: center;
 		flex-wrap: nowrap;
 		font-size: 14px;
-		line-height: 38px;
-		padding: 0 5px;
+		/* line-height: 35px; */
+		padding: 0 10px;
+		padding-right: 5px;
 		overflow: hidden;
+		height: 35px;
 		/* #ifdef APP-NVUE */
-		height: 40px;
 		/* #endif */
+		box-sizing: border-box;
 	}
 
 	.input-value-border {
@@ -347,19 +352,24 @@
 		/* #endif */
 		flex-direction: row;
 		flex-wrap: nowrap;
-		padding: 0 5px;
+		/* padding: 0 5px; */
 	}
 
 	.selected-item {
 		flex-direction: row;
-		padding: 0 1px;
+		/* padding: 0 1px; */
 		/* #ifndef APP-NVUE */
 		white-space: nowrap;
 		/* #endif */
 	}
+	
+	.text-color {
+		color: #333;
+	}
 
 	.placeholder {
 		color: grey;
+		font-size: 12px;
 	}
 
 	.input-split-line {
@@ -475,6 +485,11 @@
 		flex: 1;
 		overflow: hidden;
 	}
+	
+	.icon-clear {
+		display: flex;
+		align-items: center;
+	}
 
 	/* #ifdef H5 */
 	@media all and (min-width: 768px) {
@@ -500,13 +515,14 @@
 		}
 
 		.icon-clear {
-			margin-right: 5px;
+			/* margin-right: 5px; */
 		}
 	}
 
 	/* #endif */
-	
+
 	/* picker 弹出层通用的指示小三角, todo：扩展至上下左右方向定位 */
+	/* #ifndef APP-NVUE */
 	.uni-popper__arrow,
 	.uni-popper__arrow::after {
 		position: absolute;
@@ -534,4 +550,5 @@
 		border-top-width: 0;
 		border-bottom-color: #fff;
 	}
+	/* #endif */
 	</style>

@@ -152,6 +152,24 @@ import { createStore } from 'vuex'
 										list:[]
 									}
 									uni.setStorageSync(context.state.userInfo.userId+'_'+'chatData', JSON.stringify(data1));
+									// 创建记录
+									var msgList = {
+										userId: detail.userId,
+										personId: context.state.userInfo.userId,
+										nickName: detail.nickName,
+										portrait: detail.portrait,
+										content: '',
+										time: publicFc.getNewDate('format',true),
+										num: 0,
+										windowType: 'SINGLE',
+										disturb:'N',//是否静默消息
+										top:'N',//是否置顶
+										userType:'SINGLE'
+									}
+									context.dispatch('updateChatListInfoById', {
+										userId: detail.userId,
+										data: msgList
+									});
 									resolve({
 										msg:'创建成功',
 										data:data1[userId]
@@ -184,6 +202,24 @@ import { createStore } from 'vuex'
 										list:[]
 									}
 									uni.setStorageSync(context.state.userInfo.userId+'_'+'chatData', JSON.stringify(data1));
+									// 创建记录
+									var msgList = {
+										userId: detail.group.groupId,
+										personId: context.state.userInfo.userId,
+										nickName: detail.group.name,
+										portrait: JSON.stringify(portraits),
+										content: '',
+										time: publicFc.getNewDate('format',true),
+										num: 0,
+										windowType: 'GROUP',
+										disturb:'N',//是否静默消息
+										top:'N',//是否置顶
+										userType:'GROUP'
+									}
+									context.dispatch('updateChatListInfoById', {
+										userId: detail.group.groupId,
+										data: msgList
+									});
 									resolve({
 										msg:'创建成功',
 										data:data1[userId]

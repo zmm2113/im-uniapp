@@ -8,6 +8,7 @@
 		</uni-popup>
 		<view class="zfb-tk-main">
 			<uni-list class="zfb-tk-conent" :border="false" style="background: none;"><chatItem v-for="(v, index) in chatWindowData" :key="'key' + index" :talkTo="talkTo" :itemKey="index" :item="v" @tryagin="tryagin" @longpressItem="longpressItem" :longTapItemKey="longTapItemKey"></chatItem></uni-list>
+			<view class="autodownView"></view>
 		</view>
 		<view :style="'height: ' + keyboardHeight + 'px'"></view>
 		<view v-if="showtool || showEmojitool" :style="'height:558rpx'"></view>
@@ -43,6 +44,7 @@
 // #ifdef APP-PLUS
 const TUICalling = uni.requireNativePlugin('TUICallingUniPlugin-TUICallingModule');
 // #endif
+let observer = null;
 import favorites from '../favorites/index.vue';
 import chatItem from './chat-item.vue';
 import sendCard from './sendCard.vue';
@@ -54,6 +56,9 @@ export default {
 	},
 	data() {
 		return {
+			isBottomHeight: '',
+			clickToSubmitSure: null,
+			autodown: true,
 			emojilist: ['😁', '😂', '😃', '😄', '😅', '😆', '😉', '😊', '😋', '😌', '😍', '😏', '😒', '😓', '😔', '😖', '😘', '😚', '😜', '😝', '😞', '😠', '😡', '😢', '😣', '😤', '😥', '😨', '😩', '😪', '😫', '😭', '😰', '😱', '😲', '😳', '😵', '😷', '😸', '😹', '😺', '😻', '😼', '😽', '😾', '😿', '🙀', '🙅', '🙆', '🙇', '🙈', '🙉', '🙊', '🙋', '🙌', '🙍', '🙎', '🙏'],
 			showRecorder: false,
 			showVice: false,
@@ -124,6 +129,7 @@ export default {
 			handler(v) {
 				if (this.chatDataUserId == this.talkTo.userId) {
 					this.scrolltoBottom();
+					this.clickToSubmitSure();
 				}
 			}
 		},
@@ -134,7 +140,6 @@ export default {
 				if (v > 0) {
 					this.showEmojitool = false;
 				}
-				this.scrolltoBottom();
 			}
 		}
 	},
@@ -170,7 +175,30 @@ export default {
 				}
 				this.scrolltoBottom();
 			});
+		this.clickToSubmitSure = this.$fc.debounce(
+			() => {
+				observer = uni.createIntersectionObserver(this);
+				observer.relativeTo('.zfb-tk-main').observe('.autodownView', res => {
+					var isBottomH = res.intersectionRect.top + res.intersectionRect.height;
+					if (!this.isBottomHeight) {
+						this.isBottomHeight = res.relativeRect.height + res.relativeRect.top - 56;
+					}
+
+					if (parseInt(isBottomH) < parseInt(this.isBottomHeight) + 40) {
+						this.autodown = true;
+					} else {
+						this.autodown = false;
+					}
+				});
+			},
+			100,
+			false
+		);
 	},
+	onPageScroll() {
+		this.clickToSubmitSure();
+	},
+	onReady() {},
 	onShow() {
 		if (this.chatListInfo && this.chatListInfo.nickName) {
 			uni.setNavigationBarTitle({
@@ -186,6 +214,9 @@ export default {
 		// #endif
 	},
 	onUnload() {
+		if (observer) {
+			observer.disconnect();
+		}
 		if (this.chatListInfo) {
 			this.chatListInfo.num = 0;
 			this.$store.dispatch('updateChatListInfoById', { userId: this.talkTo.userId, data: this.chatListInfo });
@@ -250,7 +281,6 @@ export default {
 		changeTool() {
 			this.showtool = !this.showtool;
 			this.showEmojitool = false;
-			this.scrolltoBottom();
 		},
 		sendCardclick(e) {
 			this.$refs.popup.close();
@@ -638,14 +668,16 @@ export default {
 			);
 		},
 		scrolltoBottom() {
-			this.$nextTick(() => {
-				this.timer = setTimeout(() => {
-					uni.pageScrollTo({
-						scrollTop: 9999999,
-						duration: 10
-					});
-				}, 100);
-			});
+			if (this.autodown) {
+				this.$nextTick(() => {
+					this.timer = setTimeout(() => {
+						uni.pageScrollTo({
+							scrollTop: 9999999,
+							duration: 10
+						});
+					}, 200);
+				});
+			}
 		}
 	},
 	onNavigationBarButtonTap(e) {
@@ -673,6 +705,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.autodownView {
+	height: 1px;
+	width: 100%;
+	opacity: 0;
+}
 .uni-list {
 	background: none;
 }

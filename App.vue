@@ -85,7 +85,6 @@
 							})
 						}
 					});
-					var cid=uni.getStorageSync('cid');
 					var nowCid=plus.push.getClientInfo().clientid
 					this.$http.request({
 						url: '/my/bindCid/'+nowCid,

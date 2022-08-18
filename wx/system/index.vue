@@ -189,9 +189,13 @@
 						content: '是否确认清空聊天信息',
 						success: (res)=> {
 							if (res.confirm) {
-								// uni.clearStorageSync();
-								uni.removeStorageSync(this.userinfo.userId+'_'+'chatlistData')
-								uni.removeStorageSync(this.userinfo.userId+'_'+'chatData')
+								// 不清理的key
+								var whiteList=['Authorization','device','version']
+								const res = uni.getStorageInfoSync();
+								var removeList=res.keys.filter(item=>!whiteList.includes(item))
+								for (var i = 0; i < removeList.length; i++) {
+									uni.removeStorageSync(removeList[i]);
+								}
 								uni.showToast({
 									title:'清除成功',
 									icon:'none'

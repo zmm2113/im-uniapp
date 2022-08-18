@@ -6,7 +6,6 @@
 			<openTool :class="[{ 'openTool-msgleft': item.type == 1 }, { 'openTool-msgright': item.type == 2 }]" :talkTo="talkTo" :ref="'toolx'+itemKey" :data="item" :itemKey="itemKey"></openTool>
 			<image class="zfb-tk-avatar" @click="gochatOne(item)" v-if="item.type !== 3" :src="item.portrait" mode="aspectFill"></image>
 			<view class="zfb-tk-item-contentx" @longpress="longpressItem($event,itemKey,item)">
-				<view class="zfb-tk-item-contentx-name" v-if="item.windowType=='GROUP'">{{item.nickName}}</view>
 				<view class="zfb-tk-item-contentx-c">
 					<view class="zfb-tk-time-notsend wxfont fssb" @click="tryagin(item, itemKey)" v-if="item.sendtype && item.sendtype == 'error'"></view>
 					<view class="zfb-tk-item-contentx-c-tool">
