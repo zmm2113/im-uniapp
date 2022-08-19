@@ -33,10 +33,8 @@
 <img src="https://img.alicdn.com/imgextra/i4/87413133/O1CN01fMUNJA1Z0xck1w0kt_!!87413133.jpg" width="200">
 <img src="https://img.alicdn.com/imgextra/i3/87413133/O1CN01n8MZhZ1Z0xctYZEbM_!!87413133.jpg" width="200">
 
-#### 五、请作者喝杯茶吧
-<img src="https://img.alicdn.com/imgextra/i3/87413133/O1CN01Ilrbqk1Z0xcwW5PsK_!!87413133.jpg" width="600">
 
-#### 六、项目计划
+#### 五、项目计划
 + 适配android端（已完成）
 + 适配iOS端（已完成）
 + 适配H5端（已完成）
@@ -50,7 +48,7 @@
 + 后端优化，支持大并发
 + ...
 
-#### 七、版本迭代    
+#### 六、版本迭代    
 + 1.2.0   
     1、修复群名称、昵称显示问题   
     2、修复性别显示问题   
