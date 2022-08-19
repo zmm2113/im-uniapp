@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<watermark></watermark>
 		<uni-popup ref="popup" type="center">
 			<view class="popsendCard" :style="'height:' + windowHeight + 'px'"><sendCard @click="sendCardclick"></sendCard></view>
 		</uni-popup>

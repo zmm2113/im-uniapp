@@ -1,5 +1,6 @@
 <template>
 	<view class="bgColor">
+		<watermark></watermark>
 		<view class="search-friends-send">
 			<form @submit="subform">
 				<view class="search-friends-send-title">你需要发送验证消息，等对方通过</view>

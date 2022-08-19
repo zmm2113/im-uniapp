@@ -1,5 +1,6 @@
 <template>
 	<view class="bgColor" v-if="detail">
+		<watermark></watermark>
 		<view class="wxgroup-list">
 			<view class="wxgroup-list-item" v-for="(v, i) in detail.user" @click="gofriend(v)" :key="i">
 				<image class="wxgroup-list-img" :src="v.portrait" mode="aspectFill"></image>

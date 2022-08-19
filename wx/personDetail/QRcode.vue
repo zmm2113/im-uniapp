@@ -1,5 +1,6 @@
 <template>
 	<view class="bgColor">
+		<watermark></watermark>
 		<view class="QRcode-box">
 			<view class="person-wx" v-if="userInfo">
 				<view class="person-wx-user">

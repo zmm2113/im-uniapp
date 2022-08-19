@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<watermark></watermark>
 		<form @submit="subform" class="remarkForm">
 			<view class="remarkForm-item">
 				<view class="remarkForm-label">个性签名 (发表你的个性签名吧)</view>

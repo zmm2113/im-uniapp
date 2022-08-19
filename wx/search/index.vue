@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<watermark></watermark>
 		<zy-search :inputPlaceholder="inputPlaceholder" :inputHeight="inputHeight" :isFocus="isFocus" :theme="theme"
 		 :callbackTime="callbacktime" :autoComplaylist="autoComplaylist" :hotList="hotList" :historyNum="historyNum"
 		 :speechEngine="speechEngine" :Punctuation="Punctuation" @clickSearch="clickearch" @tagsClick="tagsclick"

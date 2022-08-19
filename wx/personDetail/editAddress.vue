@@ -1,5 +1,6 @@
 <template>
 	<view class="bgColor">
+		<watermark></watermark>
 		<form @submit="subform" class="remarkForm">
 			<view class="remarkForm-item">
 				<zmm-city-picker v-model="city"></zmm-city-picker>

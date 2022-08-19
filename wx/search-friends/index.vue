@@ -1,5 +1,6 @@
 <template>
 	<view class="bgColor">
+		<watermark></watermark>
 		<view class="search-friends">
 			<form @submit="subform">
 				<input class="search-friends-input" placeholder="请填写微聊号/手机号" v-model="form.param" type="text" />

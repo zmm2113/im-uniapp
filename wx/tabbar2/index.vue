@@ -1,5 +1,6 @@
 <template>
 	<view class="xw-book">
+		<watermark></watermark>
 		<uni-indexed-list-wx :options="list" @click="bindClick"></uni-indexed-list-wx>
 		<top-right-tool-wx ref="trtw"></top-right-tool-wx>
 	</view>

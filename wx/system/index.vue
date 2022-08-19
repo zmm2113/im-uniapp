@@ -1,5 +1,6 @@
 <template>
 	<view class="bgColor">
+		<watermark></watermark>
 		<tool-list-wx :list="list2" @onlongpress="onlongpress" @itemClick="itemClick0"></tool-list-wx>
 		<tool-list-wx :list="list3" @itemClick="itemClick"></tool-list-wx>
 		<tool-list-wx :list="list4" @itemClick="itemClick2"></tool-list-wx>

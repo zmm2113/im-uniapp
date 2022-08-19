@@ -1,5 +1,6 @@
 <template>
 	<view class="xw-book">
+		<watermark></watermark>
 		<uni-indexed-list-wx :showAdd="false" :options="list" @click="bindClick"></uni-indexed-list-wx>
 	</view>
 </template>

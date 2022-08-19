@@ -1,5 +1,6 @@
 <template>
 	<view class="friendsCircle">
+		<watermark></watermark>
 		<friends-circle-top :cover="cover" :userInfo="userInfox" @userClick="userClick" :showChangePoster="showChangePoster"></friends-circle-top>
 		<view class="friendsCircle-content-today">
 			<view class="friends-circle-today" v-if="showMsglist">

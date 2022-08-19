@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<watermark></watermark>
 		<form @submit="subform" class="remarkForm">
 			<view class="remarkForm-item">
 				<view class="remarkForm-label">群公告</view>

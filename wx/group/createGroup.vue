@@ -1,5 +1,6 @@
 <template>
 	<view class="wx-createGroup" :style="'height: calc(100vh - '+windowTop+'px)'">
+		<watermark></watermark>
 		<view class="wx-createGroup-check">
 			<uni-indexed-list-wx showSelect :showAdd="false" :options="list" @click="bindClick"></uni-indexed-list-wx>
 		</view>

@@ -1,5 +1,6 @@
 <template>
 	<view class="bgColor" v-if="detail">
+		<watermark></watermark>
 		<view class="wxscanCodeDetail">
 			<view class="wxscanCodeDetail-imgs">
 				<image v-for="(item,index) in detail.portrait" :src="item" mode="aspectFill"></image>

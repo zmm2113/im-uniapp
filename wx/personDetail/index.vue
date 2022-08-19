@@ -1,5 +1,6 @@
 <template>
 	<view class="bgColor">
+		<watermark></watermark>
 		<view class="xw-tool-list">
 			<view class="xw-tool-list-content">
 				<view class="xw-tool-item">

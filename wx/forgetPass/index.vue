@@ -1,5 +1,6 @@
 <template>
 	<view class="wx-login">
+		<watermark></watermark>
 		<view class="wx-login-title">找回密码</view>
 		<view class="xw-login-form">
 			<form @submit="sublogin">

@@ -1,5 +1,6 @@
 <template>
 	<view class="friendsCircle-send">
+		<watermark></watermark>
 		<form @submit="subform">
 			<view class="friendsCircle-send-item">
 				<textarea class="friendsCircle-send-textarea" auto-height placeholder="这一刻的想法..." maxlength="200" v-model="form.content"></textarea>

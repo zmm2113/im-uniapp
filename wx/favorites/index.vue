@@ -1,5 +1,6 @@
 <template>
 	<view class="bgColor">
+		<watermark></watermark>
 		<view class="favorites-wx">
 			<view class="favorites-wx-top">
 				<view class="favorites-wx-top-item" v-for="(v,i) in types" :key="i" @click="clickType(v)">{{v.label}}</view>

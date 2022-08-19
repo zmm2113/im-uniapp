@@ -1,5 +1,6 @@
 <template>
 	<view class="wxshake">
+		<watermark></watermark>
 		<view class="wxshake-box">
 			<image class="wxshake-img" src="../../static/wx/y01.png" mode="aspectFill"></image>
 			<view class="wxshake-open-box" :class="{'wxshake-open':show}">

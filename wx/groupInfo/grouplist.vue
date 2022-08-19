@@ -1,5 +1,6 @@
 <template>
 	<view class="bgColor">
+		<watermark></watermark>
 		<view class="wxgrouplist">
 			<view class="wxgrouplist-item" v-for="(v,i) in list" :key="i" @click="goGroup(v)">
 				<view class="wxgrouplist-imgs">

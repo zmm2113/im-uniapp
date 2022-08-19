@@ -1,5 +1,6 @@
 <template>
 	<view class="bgColor">
+		<watermark></watermark>
 		<!-- <tool-list-wx :list="list1" @itemClick="itemClick1"></tool-list-wx> -->
 		<tool-list-wx :list="list2" @itemClick="itemClick2"></tool-list-wx>
 		<view class="xw-tool-list">

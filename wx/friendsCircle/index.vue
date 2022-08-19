@@ -1,5 +1,6 @@
 <template>
 	<view class="friendsCircle">
+		<watermark></watermark>
 		<friends-circle-top :cover="cover" :userInfo="userInfo" @userClick="userClick"></friends-circle-top>
 		<view class="friendsCircle-content">
 			<view class="friendsCircle-msgalert-box" v-if="topicReply.count && topicReply.count > 0" @click="gomsglist">

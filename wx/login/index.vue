@@ -1,5 +1,6 @@
 <template>
 	<view class="wx-login">
+		<watermark></watermark>
 		<view class="wx-login-title">手机号登录</view>
 		<view class="xw-login-form">
 			<form @submit="sublogin">

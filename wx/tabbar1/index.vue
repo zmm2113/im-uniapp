@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<watermark></watermark>
 		<uni-list-wx>
 			<uni-list-wx :border="true">
 				<view class="alertTips" v-if="list.length <= 0">暂无消息,快去联系你的好朋友吧</view>

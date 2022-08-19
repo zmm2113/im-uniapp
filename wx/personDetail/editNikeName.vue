@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<watermark></watermark>
 		<form @submit="subform" class="remarkForm">
 			<view class="remarkForm-item">
 				<view class="remarkForm-label">名字(好名字可以让朋友更容易记住你)</view>

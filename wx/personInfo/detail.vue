@@ -1,5 +1,6 @@
 <template>
 	<view class="bgColor">
+		<watermark></watermark>
 		<view class="person-wx" v-if="detail">
 			<view class="person-wx-user">
 				<image class="person-wx-avatar" @click="$fc.previewImagesolo(detail.portrait)" :src="detail.portrait" mode="aspectFill"></image>

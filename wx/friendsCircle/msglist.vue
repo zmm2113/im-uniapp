@@ -1,5 +1,6 @@
 <template>
 	<view class="wxnearby">
+		<watermark></watermark>
 		<view class="wxnearby-item" v-for="(v,i) in list" :key="i" @click="godetail(v)">
 			<view class="person-wx-user">
 				<image class="person-wx-avatar" :src="v.portrait" mode="aspectFill"></image>

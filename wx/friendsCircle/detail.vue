@@ -1,5 +1,8 @@
 <template>
-	<view><friends-circle-detail :detail="detail"></friends-circle-detail></view>
+	<view>
+		<watermark></watermark>
+		<friends-circle-detail :detail="detail"></friends-circle-detail>
+	</view>
 </template>
 
 <script>

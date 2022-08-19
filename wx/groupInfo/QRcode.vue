@@ -1,5 +1,6 @@
 <template>
 	<view class="bgColor">
+		<watermark></watermark>
 		<view class="QRcode-box">
 			<view style="width: 100%;" v-if="detail">
 				<uni-list :border="false">
