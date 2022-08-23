@@ -40,6 +40,14 @@
 						type: 'text',
 						content: '微聊 v'+versionName
 					}]
+				},{
+					title: '开源',
+					path: '#',
+					hideRight:true,
+					else:[{
+						type: 'text',
+						content: '考拉开源，学习请加Q群535099683'
+					}]
 				}],
 				list3:[{
 					title: '修改密码',
@@ -60,6 +68,18 @@
 			console.log()
 		},
 		methods: {
+			copyText(e){
+				uni.setClipboardData({
+					data: e,
+					success: function() {
+						uni.showToast({
+							title: 'QQ群号复制成功',
+							icon: 'none',
+							position: 'bottom'
+						})
+					}
+				});
+			},
 			goagreement() {
 				// uni.navigateTo({//本地协议
 				// 	url: '../../pages/agreement/index?name=微聊'
@@ -126,6 +146,9 @@
 				switch (i){
 					case 1:
 					this.goagreement()
+					break;
+					case 3:
+					this.copyText('535099683')
 					break;
 					case 2:
 					// #ifdef H5
