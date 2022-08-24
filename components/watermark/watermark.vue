@@ -1,5 +1,5 @@
 <template>
-	<zmm-watermark :watermark="watermark"></zmm-watermark>
+	<zmm-watermark opacity="0.05" :watermark="watermark"></zmm-watermark>
 </template>
 
 <script>
