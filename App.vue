@@ -127,6 +127,11 @@
 					});
 				}
 			});
+			uni.onNetworkStatusChange( (res)=> {
+				if(res.isConnected){
+					this.$store.dispatch('get_UserInfo')
+				}
+			});
 			// #endif
 		},
 		onShow: function() {
