@@ -1,13 +1,15 @@
 import fc from '@/common/publicFc.js'
 let timer=null
+let retimer=null
 export default {
+	socketTask:null,
 	// 连接WebSocket
 	connectSocket() {
-		uni.connectSocket({
+		this.socketTask=uni.connectSocket({
 			url: 'wss://im-api.q3z3.com/ws?Authorization=' + uni.getStorageSync('Authorization'),
 			complete: () => {}
 		});
-		uni.onSocketOpen(res => {
+		this.socketTask.onOpen(res => {
 			console.log('WebSocket连接已打开！');
 			// 设置心跳
 			timer=setInterval(()=>{
@@ -24,7 +26,7 @@ export default {
 			},5000)
 		})
 		// 监听接收
-		uni.onSocketMessage(res => {
+		this.socketTask.onMessage(res => {
 			if(res.data=='ok'){
 				return
 			}
@@ -33,23 +35,36 @@ export default {
 			console.log('WebSocket接收消息！');
 		})
 		// 监听关闭
-		uni.onSocketClose(res => {
+		this.socketTask.onClose(res => {
 			console.log('WebSocket连接已关闭！');
+			let token= uni.getStorageSync('Authorization');
+			if(this.socketTask&&token){
+				this.socketTaskClose()
+				retimer=setTimeout(()=>{
+					this.connectSocket()
+				},5000)
+			}
 		})
 		// 监听异常
-		uni.onSocketError(res => {
+		this.socketTask.onError(res => {
 			console.log('WebSocket连接打开失败，正在尝试重新打开！');
-			setTimeout(()=>{
-				this.connectSocket()
-			},15000)
+			if(this.socketTask){
+				this.socketTaskClose()
+				retimer=setTimeout(()=>{
+					this.connectSocket()
+				},5000)
+			}
+			
 		});
 		
 	},
 	// 关闭WebSocket
 	socketTaskClose() {
-		uni.closeSocket(res => {
+		if(this.socketTask){
+			this.socketTask.close()
 			clearInterval(timer)
-			console.log('WebSocket 已关闭！');
-		})
+			clearTimeout(retimer)
+			console.log('关闭WebSocket！');
+		}
 	},
 }
