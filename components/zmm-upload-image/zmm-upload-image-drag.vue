@@ -28,7 +28,7 @@
 </template>
 <script>
 	export default {
-		emits:['itemclick','deleteImage','change','moveEndList'],
+		emits:['itemclick','update:imgList','deleteImage','change','moveEndList'],
 		props: {
 			//图片列表
 			imgList: {

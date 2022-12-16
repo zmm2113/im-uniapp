@@ -1,6 +1,6 @@
 <template>
 	<view class="zmm-upload-image" v-if="show">
-		<zmm-upload-image-drag :key="key" :rowNum="rows" :imgRadius="imgRadius" :imgSize="imgSize" :imgPadding="imgPadding" v-model:imgList="fileList" @deleteImage="deleteImage" @itemclick="itemclick">
+		<zmm-upload-image-drag :key="key" :rowNum="rows" :imgRadius="imgRadius" :imgSize="imgSize" :imgPadding="imgPadding" :imgList="fileList" @deleteImage="deleteImage" @itemclick="itemclick">
 			<view v-if="showAdd && fileList.length < limit" @tap="chooseTap" :style="{ width: imgSize + 'rpx', height: imgSize + 'rpx',padding:imgPadding+'rpx' }" class="zmm-upload-image-item-slot">
 				<view class="zmm-upload-image-item-slotIcon">
 					<uni-icons type="plusempty" color="#6E6E6E" size="24" />
