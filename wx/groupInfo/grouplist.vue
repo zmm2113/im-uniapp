@@ -53,7 +53,6 @@ export default {
 	right: 0;
 	bottom: 0;
 	background: #ededed;
-	z-index: -1;
 	overflow: auto;
 }
 /* #endif */

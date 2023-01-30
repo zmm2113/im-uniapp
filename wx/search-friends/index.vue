@@ -156,7 +156,6 @@
 	    right: 0;
 	    bottom: 0;
 	    background: #EDEDED;
-	    z-index: -1;
 		overflow: auto;
 	  }
 	/* #endif */
