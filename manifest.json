@@ -30,7 +30,9 @@
             "Push" : {},
             "Speech" : {},
             "VideoPlayer" : {},
-            "iBeacon" : {}
+            "iBeacon" : {},
+            "Barcode" : {},
+            "Camera" : {}
         },
         /* 模块配置 */
         "distribute" : {
