@@ -8,7 +8,8 @@
 + 后端源码地址：[https://gitee.com/lakaola/im-platform](https://gitee.com/lakaola/im-platform)
 + 下载体验地址：[https://im.q3z3.com/](https://im.q3z3.com/)
 + 加入QQ群：   
-[![Q群2](https://img.shields.io/badge/Q群2-671590862-blue.svg)](https://jq.qq.com/?_wv=1027&k=9VJv8p2I)（671590862）   
+[![Q群3](https://img.shields.io/badge/Q群3-60559794-blue.svg)](https://jq.qq.com/?_wv=1027&k=etm5kfCT)（60559794）   
+[![Q群2](https://img.shields.io/badge/Q群2-671590862-blue.svg)](https://jq.qq.com/?_wv=1027&k=9VJv8p2I)（671590862）(已满)   
 [![Q群1](https://img.shields.io/badge/Q群1-535099683-blue.svg)](https://jq.qq.com/?_wv=1027&k=PQMnFugm)（535099683）(已满)
 
 #### 二、使用须知
