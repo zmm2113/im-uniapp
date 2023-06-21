@@ -30,11 +30,9 @@
 				<view class="xw-login-form-code" @click="goForgetPass">忘记密码</view>
 				<button class="wx-btn wx-btn-info xw-login-form-btn" form-type="submit">登录</button>
 				<view class="login-agree">
-					<view class="login-agree-checkd" @click="agree = !agree">
-						<label for="agree">
-							<checkbox id="agree" style="transform:scale(0.7)" :checked="agree" />
-							<text class="login-agree-btn">已阅读并同意</text>
-						</label>
+					<view class="login-agree-checkd">
+						<checkbox @click="agree = !agree" style="transform:scale(0.7)" :checked="agree" />
+						<text class="login-agree-btn" @click="agree = !agree">已阅读并同意</text>
 					</view>
 					<view class="login-agree-text" @click="goagreement()">《隐私及服务协议》</view>
 				</view>
