@@ -688,12 +688,12 @@ export default {
 		switch (e.index) {
 			case 0:
 				if (this.talkTo.windowType == 'GROUP') {
-					uni.navigateTo({
+					uni.redirectTo({
 						url: '../groupInfo/detail?param=' + this.talkTo.userId
 					});
 				}
 				if (this.talkTo.windowType == 'SINGLE') {
-					uni.navigateTo({
+					uni.redirectTo({
 						url: '../personInfo/detail?param=' + this.talkTo.userId
 					});
 				}
