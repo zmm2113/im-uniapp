@@ -161,8 +161,13 @@
 			itemClick(e,i){
 				switch (i){
 					case 0:
+					let obj={
+						userId:this.detail.userId,
+						windowType:"SINGLE",
+						portrait:this.detail.portrait
+					}
 					uni.navigateTo({
-						url:'../chatWindow/index?userId='+this.detail.userId+'&windowType=SINGLE'
+						url: '../chatWindow/index?data=' + encodeURIComponent(JSON.stringify(obj))
 					})
 						break;
 					case 1:

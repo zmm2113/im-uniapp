@@ -26,8 +26,13 @@ export default {
 	},
 	methods: {
 		goGroup(e){
+			let obj={
+				userId:e.groupId,
+				windowType:"GROUP",
+				portrait:JSON.stringify(e.portrait)
+			}
 			uni.navigateTo({
-				url:'../chatWindow/index?userId='+e.groupId+'&windowType=GROUP'
+				url: '../chatWindow/index?data=' + encodeURIComponent(JSON.stringify(obj))
 			})
 		},
 		getlist(e) {
