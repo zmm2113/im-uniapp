@@ -43,9 +43,6 @@
 				plus.navigator.closeSplashscreen();
 				// #endif
 			} else {
-				// #ifdef H5
-				this.$socketTask.connectSocket()
-				// #endif
 				this.$store.dispatch('get_UserInfo').then(res=>{
 					// #ifdef APP-PLUS
 					var nickName=res.nickName
@@ -85,15 +82,12 @@
 							})
 						}
 					});
-					var nowCid=plus.push.getClientInfo().clientid
 					this.$http.request({
-						url: '/my/bindCid/'+nowCid,
-						success: (res) => {
-							console.log('新cid'+nowCid)
-							uni.setStorageSync('cid', nowCid);
-						}
+						url: '/my/refresh',
+						success: (res) => {}
 					});
 					// #endif
+					this.$socketTask.connectSocket()
 				})
 				uni.reLaunch({
 					url: "wx/tabbar1/index",

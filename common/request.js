@@ -1,6 +1,8 @@
 // #ifdef APP-PLUS
 import appUpgrade from '@/common/appUpgrade.js';
 // #endif
+import {clearSocketTask} from "@/common/socketTask.js";
+
 let http = {
 	'setBaseUrl': (url) => {
 		if (url.charAt(url.length - 1) === "/") {
@@ -71,6 +73,8 @@ function request(con) {
 		complete: con.complete ? (res) => {
 			con.complete(res);
 		} : (res) => {
+			// console.log(con)
+			// console.log(res)
 			if (!res.statusCode) {
 				uni.showToast({
 					title: '请求失败',
@@ -91,8 +95,9 @@ function request(con) {
 						title: '登录已过期，请重新登录',
 						icon: 'none'
 					});
+					clearSocketTask()
 					uni.hideLoading();
-					// uni.clearStorage()
+					uni.clearStorage()
 					// setTimeout(()=>{
 					uni.reLaunch({
 						url:'/pages/wxindex/index'
@@ -293,5 +298,5 @@ function downloadFile(con) {
 // });
 // 地址及配置
 http.setBaseUrl("https://im-api.q3z3.com"); //在线服务器
-// http.setBaseUrl("http://192.168.0.105:8080"); //离线服务器
+// http.setBaseUrl("http://192.168.0.200:8080"); //离线服务器
 export default http

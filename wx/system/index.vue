@@ -132,9 +132,7 @@
 						url: '/my/logout',
 						success: (res) => {}
 					});
-					// #ifdef H5
-					this.$socketTask.socketTaskClose()
-					// #endif
+					this.$socketTask.clearSocketTask()
 					// #ifdef APP-PLUS
 					TUICalling.logout((res) => {
 					    console.log(JSON.stringify(res))

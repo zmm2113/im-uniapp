@@ -21,11 +21,15 @@ import { createStore } from 'vuex'
 		chatDataUserId:'',
 		topicReply:{},
 		topicRed:{},
-		friendApply:{}
+		friendApply:{},
+		talkToData:''
 	},
 	mutations: {
 		update_UserInfo(state, data) {//个人信息
 			state.userInfo = JSON.parse(data)
+		},
+		update_TalkToData(state, data) {//聊天对象信息
+			state.talkToData = data
 		},
 		update_ChatList(state, data) {
 			state.chatlist = data
@@ -189,15 +193,11 @@ import { createStore } from 'vuex'
 							complete:(res)=>{
 								if (res.data.code == 200) {
 									var detail=res.data.data
-									var portraits=[]
-									for (var i = 0; i < detail.user.length; i++) {
-										portraits.push(detail.user[i].portrait)
-									}
 									data1[userId]={
 										fromInfo:{},
 										groupInfo:{
 											nickName: detail.group.name,
-											portrait: JSON.stringify(portraits),
+											portrait: detail.group.portrait,
 											userId: detail.group.groupId,
 										},
 										list:[]
@@ -208,7 +208,7 @@ import { createStore } from 'vuex'
 										userId: detail.group.groupId,
 										personId: context.state.userInfo.userId,
 										nickName: detail.group.name,
-										portrait: JSON.stringify(portraits),
+										portrait: detail.group.portrait,
 										content: '',
 										time: publicFc.getNewDate('format',true),
 										num: 0,

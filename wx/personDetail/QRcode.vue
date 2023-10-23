@@ -2,56 +2,136 @@
 	<view class="bgColor">
 		<watermark></watermark>
 		<view class="QRcode-box">
-			<view class="person-wx" v-if="userInfo">
-				<view class="person-wx-user">
-					<image class="person-wx-avatar" @click="$fc.previewImagesolo(userInfo.portrait)" :src="userInfo.portrait" mode="aspectFill"></image>
-					<view class="person-wx-user-detail">
-						<view class="person-wx-nikename">
-							<text class="text">{{userInfo.nickName}}</text>
-							<view class="wxfont person-wx-nikename-icon" :class="{'nv':userInfo.gender=='0'}" v-if="userInfo.gender=='0'"></view>
-							<view class="wxfont person-wx-nikename-icon" :class="{'nan':userInfo.gender=='1'}" v-if="userInfo.gender=='1'"></view>
-						</view>
-						<text class="person-wx-name">
-							微聊号：{{userInfo.chatNo}}
-						</text>
-					</view>
-				</view>
-			</view>
-			<view class="QRcode-img">
-				<image :src="QRimg" mode="aspectFill" @click="resetQrCode"></image>
-			</view>
-			<view class="QRcode-tips">扫一扫上面的二维码图案，加我微聊</view>
+			<l-painter :board="poster" ref="painter" />
 		</view>
 	</view>
 </template>
 
 <script>
+	import {
+		name
+	} from '@/manifest.json';
 	export default {
 		data() {
 			return {
+				name:name,
 				QRimg:''
 			}
 		},
 		onLoad(e) {
-			this.$http.request({
-				url: '/my/getQrCode',
-				success: (res) => {
-					if (res.data.code == 200) {
-						this.QRimg=res.data.data
-					}
-				}
-			});
+			this.getQrCode()
 		},
 		computed:{
 			userInfo(){
 				return this.$store.state.userInfo
+			},
+			poster() {
+				return {
+					css: {
+						// 根节点若无尺寸，自动获取父级节点
+						width: '750rpx'
+					},
+					views: [{
+						css: {
+							background: "#ffffff",
+							width: "600rpx",
+							display: "block",
+							margin: "15px auto",
+							borderRadius: "12px",
+							padding: "34rpx",
+							boxShadow:"0px 0px 15px rgba(0,0,0,0.1)"
+						},
+						type: "view",
+						views: [ {
+							type: "view",
+							css: {
+								marginTop: "12rpx",
+								display: "block",
+								textAlign: "center"
+							},
+							views: [{
+								type: 'image',
+								src: this.userInfo.portrait,
+								css: {
+									width: '90rpx',
+									height: '90rpx',
+									objectFit: 'cover',
+									objectPosition: '50% 50%',
+									borderRadius: "50%",
+								}
+							}],
+						},{
+							type: "view",
+							css: {
+								display: "block",
+								textAlign: "center"
+							},
+							views: [{
+								css: {
+									color: "#111",
+									fontSize: "36rpx",
+									fontWeight: "bold"
+								},
+								text: this.userInfo.nickName,
+								type: "text"
+							}],
+						}, {
+							type: "view",
+							css: {
+								marginTop: "12rpx",
+								display: "block",
+								textAlign: "center"
+							},
+							views: [{
+								css: {
+									color: "#666",
+									fontSize: "28rpx",
+									textAlign: "center"
+								},
+								text: "ID:" + this.userInfo.chatNo,
+								type: "text"
+							}],
+						}, {
+							type: "view",
+							css: {
+								marginTop: "24rpx",
+								display: "block",
+								textAlign: "center"
+							},
+							views: [{
+								text: this.QRimg,
+								type: "qrcode",
+								css: {
+									width: "488rpx",
+									height: "488rpx"
+								},
+							}],
+						}, {
+							type: "view",
+							css: {
+								marginTop: "24rpx",
+								display: "block",
+								textAlign: "center"
+							},
+							views: [{
+								css: {
+									color: "#999",
+									fontSize: "26rpx",
+									textAlign: "center"
+								},
+								text: "请使用《" + this.name + "》扫描二维码，加我为好友",
+								type: "text"
+							}],
+						}]
+					}]
+				}
 			}
 		},
 		onShow(){},
 		methods: {
-			resetQrCode(){
+			getQrCode(){
 				this.$http.request({
-					url: '/my/resetQrCode',
+					url: '/my/getQrCode',
 					success: (res) => {
 						if (res.data.code == 200) {
 							this.QRimg=res.data.data
@@ -65,20 +145,36 @@
 				case 0:
 				uni.showActionSheet({
 				    // itemList: ['换个样式', '保存到手机', '扫描二维码', '重置二维码'],
-				    itemList: ['重置二维码', '保存到手机'],
+				    itemList: ['保存到手机'],
 				    success: (res)=> {
 						switch (res.tapIndex) {
 							case 0:
-							uni.showLoading({title:'重置中'})
-							this.resetQrCode()
-								break;
-							case 1:
-							// #ifdef APP-PLUS
-							this.$fc.plusSaveBase64Img({base64:this.QRimg})
-							// #endif
-							// #ifdef H5
-							this.$fc.h5SaveBase64Img({base64:this.QRimg})
-							// #endif
+								// #ifdef H5
+								uni.showToast({
+									icon: 'none',
+									title: 'H5端长按保存'
+								});
+								// #endif
+								// #ifndef H5
+								this.$refs.painter.canvasToTempFilePath({
+								  fileType: "jpg",
+								  // 如果返回的是base64是无法使用 saveImageToPhotosAlbum，需要设置 pathType为url
+								  pathType: 'url',
+								  quality: 1,
+								  success: (res) => {
+									// 非H5 保存到相册
+									uni.saveImageToPhotosAlbum({
+										filePath: res.tempFilePath,
+										success: () => {
+											uni.showToast({
+												icon: 'none',
+												title: '保存成功'
+											});
+										}
+									});
+								  },
+								});
+								// #endif
 								break;
 							default:
 								break;
@@ -114,17 +210,13 @@
 	}
 	/* #endif */
 	.QRcode-box{
-		width: 666rpx;
-		position: fixed;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%,-50%);
-		padding: 32rpx;
-		background-color: #fff;
-		border-radius: 24rpx;
+		width: 750rpx;
+		height: 100vh;
 		box-sizing: border-box;
-		display: flex;flex-direction: column;
+		display: flex;
+		flex-direction: column;
 		align-items: center;
+		justify-content: center;
 	}
 	.QRcode-img{
 		width: 600rpx;

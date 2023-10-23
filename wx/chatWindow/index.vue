@@ -145,7 +145,10 @@ export default {
 		}
 	},
 	onLoad(e) {
-		this.talkTo = e;
+		var stringdata = decodeURIComponent(e.data);
+		var data = JSON.parse(stringdata);
+		this.talkTo = data;
+		this.$store.commit('update_TalkToData',this.talkTo)
 		// 根据Id
 		this.$store
 			.dispatch('createChatObj', {
@@ -154,7 +157,7 @@ export default {
 			})
 			.then(res => {
 				this.localData = res.data;
-				if (e.windowType == 'SINGLE') {
+				if (data.windowType == 'SINGLE') {
 					uni.setNavigationBarTitle({
 						title: this.localData.fromInfo.nickName
 					});

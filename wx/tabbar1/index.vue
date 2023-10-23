@@ -52,8 +52,8 @@ export default {
 		this.clickToSubmitSure = this.$fc.debounce(
 			e => {
 				uni.navigateTo({
-					url: '../chatWindow/index?userId=' + e.userId + '&windowType=' + e.windowType
-				});
+					url: '../chatWindow/index?data=' + encodeURIComponent(JSON.stringify(e))
+				})
 			},
 			1000,
 			true

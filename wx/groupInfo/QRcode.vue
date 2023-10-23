@@ -1,36 +1,99 @@
 <template>
-	<view class="bgColor">
+	<view class="bgColor" v-if="detail">
 		<watermark></watermark>
 		<view class="QRcode-box">
-			<view style="width: 100%;" v-if="detail">
-				<uni-list :border="false">
-					<uni-list-chat :title="detail.group.name" :avatar-list="portraits" :note="'('+detail.user.length+'人)'" badge-positon="left"></uni-list-chat>
-				</uni-list>
-			</view>
-			<view class="QRcode-img">
-				<image :src="QRimg" mode="aspectFill" @click="resetQrCode"></image>
-			</view>
-			<view class="QRcode-tips">扫一扫上面的二维码图案，加入群聊</view>
+			<l-painter :board="poster" ref="painter" />
 		</view>
 	</view>
 </template>
 
 <script>
+	import {
+		name
+	} from '@/manifest.json';
 	export default {
 		data() {
 			return {
+				name:name,
 				QRimg:'',
 				detail:'',
 				portraits:[]
 			}
 		},
 		onLoad(e) {
-			this.resetQrCode(e.groupId)
+			this.getQrCode(e.groupId)
 			this.getInfo(e.groupId)
 		},
 		computed:{
 			userInfo(){
 				return this.$store.state.userInfo
+			},
+			poster() {
+				return {
+					css: {
+						// 根节点若无尺寸，自动获取父级节点
+						width: '750rpx'
+					},
+					views: [{
+						css: {
+							background: "#ffffff",
+							width: "600rpx",
+							display: "block",
+							margin: "15px auto",
+							borderRadius: "12px",
+							padding: "34rpx",
+							boxShadow:"0px 0px 15px rgba(0,0,0,0.1)"
+						},
+						type: "view",
+						views: [{
+							type: "view",
+							css: {
+								display: "block",
+								textAlign: "center"
+							},
+							views: [{
+								css: {
+									color: "#111",
+									fontSize: "36rpx",
+									fontWeight: "bold"
+								},
+								text: this.detail.group.name,
+								type: "text"
+							}],
+						}, {
+							type: "view",
+							css: {
+								marginTop: "24rpx",
+								display: "block",
+								textAlign: "center"
+							},
+							views: [{
+								text: this.QRimg,
+								type: "qrcode",
+								css: {
+									width: "488rpx",
+									height: "488rpx"
+								},
+							}],
+						}, {
+							type: "view",
+							css: {
+								marginTop: "24rpx",
+								display: "block",
+								textAlign: "center"
+							},
+							views: [{
+								css: {
+									color: "#999",
+									fontSize: "26rpx",
+									textAlign: "center"
+								},
+								text: "请使用《" + this.name + "》扫描二维码，加入群聊",
+								type: "text"
+							}],
+						}]
+					}]
+				}
 			}
 		},
 		onShow(){},
@@ -52,7 +115,7 @@
 					}
 				});
 			},
-			resetQrCode(e){
+			getQrCode(e){
 				this.$http.request({
 					url: '/group/getGroupQrCode/'+e,
 					success: (res) => {
@@ -72,12 +135,32 @@
 				    success: (res)=> {
 						switch (res.tapIndex) {
 							case 0:
-							// #ifdef APP-PLUS
-							this.$fc.plusSaveBase64Img({base64:this.QRimg})
-							// #endif
-							// #ifdef H5
-							this.$fc.h5SaveBase64Img({base64:this.QRimg})
-							// #endif
+								// #ifdef H5
+								uni.showToast({
+									icon: 'none',
+									title: 'H5端长按保存'
+								});
+								// #endif
+								// #ifndef H5
+								this.$refs.painter.canvasToTempFilePath({
+								  fileType: "jpg",
+								  // 如果返回的是base64是无法使用 saveImageToPhotosAlbum，需要设置 pathType为url
+								  pathType: 'url',
+								  quality: 1,
+								  success: (res) => {
+									// 非H5 保存到相册
+									uni.saveImageToPhotosAlbum({
+										filePath: res.tempFilePath,
+										success: () => {
+											uni.showToast({
+												icon: 'none',
+												title: '保存成功'
+											});
+										}
+									});
+								  },
+								});
+								// #endif
 								break;
 							default:
 								break;
@@ -113,17 +196,13 @@
 	}
 	/* #endif */
 	.QRcode-box{
-		width: 666rpx;
-		position: fixed;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%,-50%);
-		padding: 32rpx;
-		background-color: #fff;
-		border-radius: 24rpx;
+		width: 750rpx;
+		height: 100vh;
 		box-sizing: border-box;
-		display: flex;flex-direction: column;
+		display: flex;
+		flex-direction: column;
 		align-items: center;
+		justify-content: center;
 	}
 	.QRcode-img{
 		width: 600rpx;

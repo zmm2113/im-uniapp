@@ -1,0 +1,13 @@
+{
+    "version" : "1.0.0",
+    "prompt" : "template",
+    "title" : "隐私政策及服务协议",
+    "message" : "请你务必审慎阅读、充分理解“服务协议”和“隐私政策”各条款，为了更好的向你提供服务，我们需要收集你的设备标识、等信息用于登录及消息推送。<br/>　　你可阅读<a href=\"http://im.q3z3.com/public/am.html\">《隐私及服务协议》</a>了解详细信息。如果你同意，请点击下面按钮开始接受我们的服务。",
+    "buttonAccept" : "同意并接受",
+    "buttonRefuse" : "暂不同意",
+    "hrefLoader" : "system|default",
+    "disagreeMode" : {
+        "support" : false,
+        "loadNativePlugins" : true
+    }
+}

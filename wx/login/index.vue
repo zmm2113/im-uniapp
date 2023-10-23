@@ -6,14 +6,16 @@
 			<form @submit="sublogin">
 				<view class="xw-login-form-item">
 					<view class="xw-login-form-label">手机号</view>
-					<input class="xw-login-form-input" maxlength="11" placeholder="请填写手机号" type="text" name="phone" v-model="form.phone" />
+					<input class="xw-login-form-input" maxlength="11" placeholder="请填写手机号" type="text" name="phone"
+						v-model="form.phone" />
 					<view class="login-form-icon login-form-seepass" @click="form.phone=''" v-if="form.phone">
 						<uni-icons type="clear" size="26" color="#B9CCE0"></uni-icons>
 					</view>
 				</view>
 				<view class="xw-login-form-item" v-if="!logintype">
 					<view class="xw-login-form-label">密码</view>
-					<input class="xw-login-form-input" placeholder="请输入密码" name="password" v-model="form.password" :password="showPassword" type="text" />
+					<input class="xw-login-form-input" placeholder="请输入密码" name="password" v-model="form.password"
+						:password="showPassword" type="text" />
 					<view class="login-form-icon login-form-seepass" @click="changePassword">
 						<image src="../../static/img/l03.png" mode="aspectFill" v-if="showPassword"></image>
 						<image src="../../static/img/l04.png" mode="aspectFill" v-else></image>
@@ -21,7 +23,8 @@
 				</view>
 				<view class="xw-login-form-item" v-if="logintype">
 					<view class="xw-login-form-label">验证码</view>
-					<input class="xw-login-form-input" placeholder="请填写验证码" name="code" v-model="form.code" type="text" />
+					<input class="xw-login-form-input" placeholder="请填写验证码" name="code" v-model="form.code"
+						type="text" />
 					<view class="wx-btn wx-btn-info" @click="getMsgCode()" v-if="!loading">获取验证码</view>
 					<view class="wx-btn wx-btn-info" v-else>{{time}}秒后重试</view>
 				</view>
@@ -62,20 +65,20 @@
 		},
 		onLoad() {},
 		methods: {
-			goForgetPass(){
+			goForgetPass() {
 				uni.navigateTo({
-					url:'../forgetPass/index'
+					url: '../forgetPass/index'
 				})
 			},
 			changeLogintype() {
-				this.logintype=!this.logintype
-				if(this.logintype){
+				this.logintype = !this.logintype
+				if (this.logintype) {
 					this.form = {
 						phone: this.form.phone,
 						code: ""
 					}
 				}
-				if(!this.logintype){
+				if (!this.logintype) {
 					this.form = {
 						phone: this.form.phone,
 						password: ""
@@ -89,7 +92,7 @@
 				// uni.navigateTo({//本地协议
 				// 	url: '../../pages/agreement/index?name=微聊'
 				// })
-				this.$http.request({//在线协议
+				this.$http.request({ //在线协议
 					url: '/common/getAgreement',
 					success: (res) => {
 						if (res.data.code == 200) {
@@ -105,10 +108,10 @@
 			},
 			getMsgCode() {
 				var reg = /^1[0-9]{10,10}$/;
-				if(!this.form.phone||!reg.test(this.form.phone)){
+				if (!this.form.phone || !reg.test(this.form.phone)) {
 					uni.showToast({
-						title:'请输入正确的手机号',
-						icon:'none'
+						title: '请输入正确的手机号',
+						icon: 'none'
 					})
 					return
 				}
@@ -121,21 +124,21 @@
 						this.time = 60
 					}
 				}, 1000)
-				var formData={
-					phone:this.form.phone,
-					type:'2'//登录
+				var formData = {
+					phone: this.form.phone,
+					type: '2' //登录
 				}
 				this.$http.request({
 					url: '/auth/sendCode',
 					method: 'POST',
-					data:JSON.stringify(formData),
+					data: JSON.stringify(formData),
 					success: (res) => {
 						if (res.data.code == 200) {
 							// todo验证码
-							this.form.code=res.data.data.code
+							this.form.code = res.data.data.code
 							uni.showToast({
-								title:'验证码已发送至你的手机',
-								icon:'none'
+								title: '验证码已发送至你的手机',
+								icon: 'none'
 							})
 						}
 					}
@@ -175,17 +178,6 @@
 				// var formData = e.detail.value;
 				var formData = JSON.parse(JSON.stringify(this.form));
 				var checkRes = this.$zmmFormCheck.check(formData, rules);
-				// #ifdef APP-PLUS
-				var cid=plus.push.getClientInfo().clientid
-				formData['cid'] = cid
-				// #endif
-				// #ifdef H5
-				// todo
-				var cid=''
-				formData['cid'] = cid
-				// #endif
-				uni.setStorageSync('cid', cid);
-				console.log(cid)
 				if (checkRes) {
 					if (!this.agree) {
 						uni.showToast({
@@ -196,11 +188,11 @@
 					}
 					uni.showLoading()
 					if (!this.logintype) {
-						formData.password=this.$md5.hex_md5(formData.password)
-						this.$http.request({//手机+密码
+						formData.password = this.$md5.hex_md5(formData.password)
+						this.$http.request({ //手机+密码
 							url: '/auth/login',
 							method: 'POST',
-							data:JSON.stringify(formData),
+							data: JSON.stringify(formData),
 							success: (res) => {
 								if (res.data.code == 200) {
 									this.loginDone(res.data.data.token)
@@ -209,10 +201,10 @@
 						});
 					}
 					if (this.logintype) {
-						this.$http.request({//手机+验证码
+						this.$http.request({ //手机+验证码
 							url: '/auth/loginByCode',
 							method: 'POST',
-							data:JSON.stringify(formData),
+							data: JSON.stringify(formData),
 							success: (res) => {
 								if (res.data.code == 200) {
 									this.loginDone(res.data.data.token)
@@ -228,50 +220,53 @@
 					});
 				}
 			},
-			loginDone(token){
+			loginDone(token) {
 				uni.setStorageSync('Authorization', token);
-				// #ifdef H5
-				this.$socketTask.connectSocket()
-				// #endif
-				this.$store.dispatch('get_UserInfo').then(res=>{
+				this.$store.dispatch('get_UserInfo').then(res => {
 					// #ifdef APP-PLUS
-					var nickName=res.nickName
-					var portrait=res.portrait
+					var nickName = res.nickName
+					var portrait = res.portrait
 					this.$http.request({
 						url: '/trtc/getSign',
 						success: (res) => {
-							var sdkAppID=res.data.data.appId
-							var userID=res.data.data.userId
-							var userSig=res.data.data.sign
-							TUICalling.login({//登录音视频
-							    sdkAppID: sdkAppID, 
-							    userID: userID,
-							    userSig: userSig
-							},(res) => {
-							    console.log('音视频登录成功')
+							var sdkAppID = res.data.data.appId
+							var userID = res.data.data.userId
+							var userSig = res.data.data.sign
+							TUICalling.login({ //登录音视频
+								sdkAppID: sdkAppID,
+								userID: userID,
+								userSig: userSig
+							}, (res) => {
+								console.log('音视频登录成功')
 								TUICalling.setUserNickname({
-								    nickName: nickName
+									nickName: nickName
 								})
 								TUICalling.setUserAvatar({
-								    avatar: portrait
+									avatar: portrait
 								})
 								plus.io.requestFileSystem(plus.io.PRIVATE_WWW, function(fs) {
-								    fs.root.getFile('/static/longcall.mp3', {
-								        create: false
-								    }, function(fileEntry) {
-								        fileEntry.file(function(file) {
+									fs.root.getFile('/static/longcall.mp3', {
+										create: false
+									}, function(fileEntry) {
+										fileEntry.file(function(file) {
 											TUICalling.setCallingBell({
-											    ringtone: file.fullPath
-											},(res) => {
-												console.log(JSON.stringify(res))
+												ringtone: file
+													.fullPath
+											}, (res) => {
+												console.log(
+													JSON
+													.stringify(
+														res
+														))
 											})
 										});
-								    });
+									});
 								});
 							})
 						}
 					});
 					// #endif
+					this.$socketTask.connectSocket()
 				})
 				uni.reLaunch({
 					url: '../tabbar1/index'

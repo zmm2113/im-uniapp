@@ -362,38 +362,6 @@ export default {
 				store.commit('update_friendApply',resbody.msgContent.friendApply)
 			}
 		}
-		if (pushType == 'BIG') {//大消息
-			var bigId=resbody.msgContent.content
-			http.request({
-				url: '/chat/getBigMsg/'+bigId,
-				success: (res) => {
-					if (res.data.code == 200) {
-						var resbody=res.data.data
-						var userId=resbody.fromInfo.userId
-						var windowType='SINGLE'
-						if(resbody.groupInfo.userId){
-							userId=resbody.groupInfo.userId
-							windowType='GROUP'
-						}
-						this.pushInMsg({
-							type: resbody.msgContent.msgType == 'ALERT' ? 3 : 1, //显示类型 1左侧 2右侧 3中间
-							msgContent: resbody.msgContent.content, //msg内容
-							msgType: resbody.msgContent.msgType, //msgType信息类型
-							windowType: windowType, //聊天室类型 SINGLE GROUP
-							time: resbody.createTime, //时间
-							fromInfo:resbody.fromInfo,//来源信息
-							groupInfo:resbody.groupInfo,//群信息
-							userId: userId,//talktoId
-							personId:resbody.fromInfo.userId,
-							msgId:resbody.msgId,//消息Id
-							disturb:resbody.msgContent.disturb,//是否静默消息
-							top:resbody.msgContent.top//是否置顶
-						})
-					}
-				}
-			});
-			return
-		}
 	},
 	// 接收到的聊天推送
 	pushInMsg({
@@ -496,6 +464,13 @@ export default {
 					top:top,//是否置顶
 					userType:fromInfo.userType
 				}
+				// #ifdef APP-PLUS
+				plus.push.createMessage(msgTypeLabel, "payload", {
+					cover: true,
+					sound: 'system',
+					title: fromInfo.nickName
+				});
+				// #endif
 			}
 			if(windowType=='GROUP'){
 				msgList = {
@@ -511,7 +486,15 @@ export default {
 					top:top,//是否置顶
 					userType:'GROUP'
 				}
+				// #ifdef APP-PLUS
+				plus.push.createMessage(msgTypeLabel, "payload", {
+					cover: true,
+					sound: 'system',
+					title: groupInfo.nickName
+				});
+				// #endif
 			}
+			
 			chatWindowData.push(msgOffline)
 			store.dispatch('updateChatById', {
 				userId: userId,
@@ -532,6 +515,7 @@ export default {
 		windowType, //聊天室类型SINGLE GROUP
 		userId
 	}) {
+		let portrait=store.state.talkToData.portrait
 		var msgTypeLabel = ''; //消息类型
 		if (msgType == 'TEXT') {
 			msgTypeLabel = msgContent;
@@ -593,7 +577,7 @@ export default {
 					userId: userId,
 					personId: userInfo.userId,
 					nickName: localData.fromInfo.nickName,
-					portrait: localData.fromInfo.portrait,
+					portrait: portrait,
 					content: msgTypeLabel,
 					time: time,
 					num: chatListInfo.disturb=='Y' ? 'dot' : (chatListInfo.num ? chatListInfo.num : 0),
@@ -614,7 +598,7 @@ export default {
 					userId: userId,
 					personId: userInfo.userId,
 					nickName: localData.groupInfo.nickName,
-					portrait: localData.groupInfo.portrait,
+					portrait: portrait,
 					content: msgTypeLabel,
 					time: time,
 					num: chatListInfo.disturb=='Y' ? 'dot' : (chatListInfo.num ? chatListInfo.num : 0),
@@ -949,7 +933,6 @@ export default {
 		return function() {
 			let args = arguments;
 			if (timer) {
-				console.log('拦截')
 				clearTimeout(timer);
 			}
 			if (immediate) {
