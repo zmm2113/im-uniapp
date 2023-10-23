@@ -7,10 +7,7 @@
 + 前端源码地址：[https://gitee.com/lakaola/im-uniapp](https://gitee.com/lakaola/im-uniapp)
 + 后端源码地址：[https://gitee.com/lakaola/im-platform](https://gitee.com/lakaola/im-platform)
 + 下载体验地址：[https://im.q3z3.com/](https://im.q3z3.com/)
-+ 加入QQ群：   
-[![Q群3](https://img.shields.io/badge/Q群3-60559794-blue.svg)](https://jq.qq.com/?_wv=1027&k=etm5kfCT)（60559794）   
-[![Q群2](https://img.shields.io/badge/Q群2-671590862-blue.svg)](https://jq.qq.com/?_wv=1027&k=9VJv8p2I)（671590862）(已满)   
-[![Q群1](https://img.shields.io/badge/Q群1-535099683-blue.svg)](https://jq.qq.com/?_wv=1027&k=PQMnFugm)（535099683）(已满)
++ 加入QQ群：[![加入QQ群](https://img.shields.io/badge/加入QQ群-535099683-blue.svg)](https://jq.qq.com/?_wv=1027&k=PQMnFugm)（535099683）
 
 #### 二、使用须知
 + 仅允许`技术学习`使用
@@ -36,8 +33,10 @@
 <img src="https://img.alicdn.com/imgextra/i4/87413133/O1CN01fMUNJA1Z0xck1w0kt_!!87413133.jpg" width="200">
 <img src="https://img.alicdn.com/imgextra/i3/87413133/O1CN01n8MZhZ1Z0xctYZEbM_!!87413133.jpg" width="200">
 
+#### 五、请作者喝杯茶吧
+<img src="https://img.alicdn.com/imgextra/i3/87413133/O1CN01Ilrbqk1Z0xcwW5PsK_!!87413133.jpg" width="600">
 
-#### 五、项目计划
+#### 六、项目计划
 + 适配android端（已完成）
 + 适配iOS端（已完成）
 + 适配H5端（已完成）
@@ -51,7 +50,7 @@
 + 后端优化，支持大并发
 + ...
 
-#### 六、版本迭代    
+#### 七、版本迭代    
 + 1.2.0   
     1、修复群名称、昵称显示问题   
     2、修复性别显示问题   
