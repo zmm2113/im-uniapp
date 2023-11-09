@@ -117,7 +117,7 @@ export default {
 			return this.$store.state.chatDataUserId;
 		},
 		chatWindowData() {
-			this.$store.dispatch('getchatDatalist');
+			// this.$store.dispatch('getchatDatalist');
 			if (this.$store.state.chatDatalist[this.talkTo.userId]) {
 				return this.$store.state.chatDatalist[this.talkTo.userId].list;
 			}
