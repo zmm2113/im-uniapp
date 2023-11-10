@@ -198,7 +198,7 @@ export default {
 		}
 		var date = new Date()
 		if(datetime){
-			date=Date.parse(new Date(datetime))
+			date=new Date(datetime)
 		}
 		
 		var year = date.getFullYear(),

@@ -1,9 +1,11 @@
 <template>
 	<view class="friends-circle-person-item" v-for="(v, i) in content" :key="i">
-		<view class="friends-circle-person-item-date"><!--  -->
-			<text class="day">{{returnDate(v.createTime,'d')}}</text>
-			<text class="month">{{returnDate(v.createTime,'m')}}月</text>
-			<view class="year">{{returnDate(v.createTime,'y')}}</view>
+		<view class="friends-circle-person-item-date">
+			<view class="friends-circle-person-item-date-top">
+				<text class="day">{{returnDate(v.time,'d')}}</text>
+				<text class="month">{{returnDate(v.time,'m')}}月</text>
+			</view>
+			<view class="year">{{returnDate(v.time,'y')}}</view>
 			<view class="year" v-if="v.location.name">{{v.location.name}}</view>
 		</view>
 		<view class="friends-circle-person-view" @click="clickItem(v)">
@@ -75,21 +77,24 @@ export default {
 	}
 	.friends-circle-person-item-date{
 		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
+		flex-direction: column;
 		margin-right: 40rpx;
 		width: 115rpx;
 		min-width: 115rpx;
-		line-height: 60rpx;
 		text-align: right;
 	}
+	.friends-circle-person-item-date-top{
+		display: flex;
+		flex-direction: row;
+		align-items: flex-end;
+		justify-content: flex-end;
+	}
 	.friends-circle-person-item-date .day{
-		flex: 1;
-		font-size: 43rpx;
+		font-size: 38rpx;
 	}
 	.friends-circle-person-item-date .month{
 		font-size: 26rpx;
-		flex: 1;
+		margin-bottom: 4rpx;
 	}
 	.friends-circle-person-item-date .year{
 		width: 100%;
